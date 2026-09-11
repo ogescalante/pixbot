@@ -116,7 +116,24 @@ web — all three OneLink templates (`g4UH`, `jTeG`, `gHLl`) 301 to the App Stor
 for any non-device client, so nothing leaks from there. The values live as
 strings in the Dart snapshot inside `App.framework`.
 
-**The one remaining move:** get the bundle and read it.
+**Both routes to the bundle are closed (checked 2026-09-11):**
+
+- *Mac App Store.* Nubank opts out of Apple Silicon installs — the iTunes
+  lookup lists 130 supported devices and no Mac entry. Nothing to install.
+- *Apple Configurator.* The current version streams the app from Apple to the
+  device and never caches a readable `.ipa`. Watched every Group Container,
+  Container, Cache and `/private/var/folders` for anything over 10 MB during a
+  real Add → Apps → Replace run: nothing appeared, the
+  `K36BKF7T3D.group.com.apple.configurator` folder was never created, and
+  `lsof` on `AirTrafficService` showed only system frameworks open. The
+  cached-ipa trick that circulates online is from an older version.
+
+So Nubank's button stays on the OneLink and lands on the home screen. That is
+one extra tap, on one bank. Reopen only if a route appears that does not
+involve guessing: an official deep-link doc, a Nubank campaign URL carrying a
+real `deep_link_value`, or a bundle obtained some other legitimate way.
+
+**If a bundle ever does turn up:** get it and read it.
 `strings App.framework/App | grep -i pix` prints a Flutter route table outright.
 Two ways, both on your own machine and through Apple:
 
