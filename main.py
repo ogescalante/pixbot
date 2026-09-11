@@ -75,6 +75,7 @@ def _result_id(quote: Quote) -> str:
 
 @dp.message(Command(commands=["start", "help"]))
 async def start(message: types.Message) -> None:
+    logging.info("start from chat_id=%s", message.chat.id)
     me = await bot.get_me()
     await message.answer(HELP.format(username=me.username))
 

@@ -76,7 +76,7 @@ PicPay, PagBank, Mercado Pago and Neon are the next tier. Pix itself reaches
 | ~~Inter~~, ~~Bradesco~~ | — | **Added 2026-09-11**, see the table above. |
 | **Mercado Pago** | `mercadopago.com.br` has no Pix-send path; the nearest is `/money-transfer*` | Low value — `/money-transfer*` is the transfer hub, not Pix. |
 | **Nubank** | Re-checked 2026-09-11: still only `/payment/*` (*Link de Pagamento* — a receivable with a server-issued id, pointed the wrong way for us), plus e-mail/sim/account-linking paths | Nothing to improve without a Link de Pagamento API. Keep the OneLink. |
-| Santander | `https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?…&fc=transferenciasgerenciarminhaschaves` | **Opens the bank. Verified on device 2026-09-11.** Added the same way Itaú was — see below. |
+| Santander | — | **No button.** All three doors shut — see "Santander, and the scheme problem" below. Its custom scheme is the only thing that opens the app, and a scheme cannot be a Telegram button. |
 | Banco do Brasil, Caixa, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |
 
 ### Why a half-working button is worse than none
