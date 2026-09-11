@@ -128,3 +128,14 @@ def test_an_unambiguous_key_offers_exactly_one():
 
 def test_inline_needs_no_slash():
     assert quotes("11144477735 10")[0][0].key.value == "11144477735"
+
+
+def test_every_example_in_the_usage_text_actually_works():
+    """The old help advertised `123.456.789-01`, which the checksum refuses —
+    a bot whose own example is rejected teaches the wrong thing twice."""
+    examples = [ln.strip() for ln in USAGE.splitlines() if ln.strip().startswith("/pix ")]
+    assert len(examples) >= 3
+    for ex in examples:
+        found, error = quotes(ex)
+        assert error is None, f"{ex!r} is advertised but refused"
+        assert found[0].code.startswith("000201")

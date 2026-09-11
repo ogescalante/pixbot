@@ -4,7 +4,7 @@ A Telegram bot that turns a Pix key into a **copia-e-cola**, from inside any
 conversation.
 
 ```
-@seubot 45999999999 120
+@mandaopixbot gabriel.escsilva@gmail.com 120
 ```
 
 No bank app can be opened on a prefilled payment screen from outside — no
@@ -47,7 +47,7 @@ For the ~1% the math genuinely cannot decide, put `cpf` or `telefone` at the
 end:
 
 ```
-/pix 45926018153 120 telefone
+/pix 45926018153 120 telefone      # 45926018153 passa nas duas leituras
 ```
 
 Inline mode does better than a warning: when both readings survive it offers

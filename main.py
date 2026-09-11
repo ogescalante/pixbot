@@ -37,7 +37,7 @@ HELP = (
     USAGE
     + "\n\n"
     "Em qualquer conversa, sem me adicionar no grupo:\n"
-    "   @{username} 45999999999 120"
+    "   @{username} gabriel.escsilva@gmail.com 120"
 )
 
 
@@ -102,6 +102,13 @@ async def inline(query: types.InlineQuery) -> None:
     the CPF checksum *and* look like a mobile, there is no warning to write —
     there are two cards, and the person who knows whose key it is picks one.
     """
+    # Chat type and sizes only — never the key itself. This is the line that
+    # says whether Telegram is delivering inline queries at all, which is the
+    # first thing to know when a card does not appear.
+    logging.info(
+        "inline_query from=%s chat_type=%s len=%d",
+        query.from_user.id, query.chat_type, len(query.query),
+    )
     found, error = quotes(query.query)
     if error is not None:
         await query.answer(
@@ -135,6 +142,7 @@ async def inline(query: types.InlineQuery) -> None:
         cache_time=5,
         is_personal=True,
     )
+    logging.info("inline_query answered with %d card(s)", len(found))
 
 
 async def _run() -> None:
