@@ -47,11 +47,30 @@ ITAU_PIX = "https://www.itau.com.br/mobilepf/transferencia/pix"
 # a button: it saves hunting for the icon.
 NUBANK_APP = "https://nubank.onelink.me/g4UH/pix"
 
+# Inter claims `*` on its own domain — every path opens br.com.intermedium,
+# and Android delegates the whole domain to the same package. So this cannot
+# fall through to a browser; the worst case is the app's home screen rather
+# than its Pix screen. Which screen it actually lands on is unverified — no
+# Inter account here to tap it with. Checked against both manifests 2026-09-11.
+INTER_PIX = "https://inter.co/pix"
+
+# Bradesco claims `/deeplink/*` for its consumer app (br.com.bradescora.app on
+# iOS, com.bradesco on Android), so a path under /deeplink opens the app. Same
+# caveat as Inter: the app opens, the screen it opens on is unverified.
+BRADESCO_PIX = "https://banco.bradesco/deeplink/pix"
+
 
 def buttons(code: str) -> list[list[Button]]:
-    """Copy first — it is the whole product. The banks are a convenience row."""
+    """Copy first — it is the whole product. The banks are a convenience row.
+
+    Four is the ceiling. A fifth and a sixth push the copy button off the
+    first thing the eye lands on, and the copy button is the payment; the
+    banks only save hunting for an icon.
+    """
     return [
         [Button("📋 Copiar código Pix", copy=code)],
-        [Button("🟠 Abrir Itaú PF", url=ITAU_PIX),
-         Button("🟣 Abrir Nubank", url=NUBANK_APP)],
+        [Button("🟠 Itaú", url=ITAU_PIX),
+         Button("🟣 Nubank", url=NUBANK_APP)],
+        [Button("🟧 Inter", url=INTER_PIX),
+         Button("🔴 Bradesco", url=BRADESCO_PIX)],
     ]

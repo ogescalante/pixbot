@@ -27,6 +27,18 @@ row, not a feature — worth expanding cheaply, not worth engineering around.
 |---|---|---|
 | Itaú PF | `https://www.itau.com.br/mobilepf/transferencia/pix` | Lands on the Pix screen. Verified on device 2026-08-07. |
 | Nubank | `https://nubank.onelink.me/g4UH/pix` | Opens the app on its home screen. AppsFlyer OneLink; it ignores `deep_link_value`. |
+| Inter | `https://inter.co/pix` | **Opens the app, screen unverified.** `inter.co` claims `*` on iOS (`br.com.intermedium`) and delegates the whole domain on Android (`br.com.intermedium`), so it cannot fall through to a browser. Added 2026-09-11. |
+| Bradesco | `https://banco.bradesco/deeplink/pix` | **Opens the app, screen unverified.** `/deeplink/*` is claimed by the consumer app on iOS (`br.com.bradescora.app`) and the domain is delegated to `com.bradesco` on Android. Added 2026-09-11. |
+
+**Still to verify on a device:** whether Inter and Bradesco land on their Pix
+screens or on their home screens. Both are safe either way — the worst case is
+the app's home screen, which is still better than hunting for the icon — but if
+one lands somewhere useless, a different path may do better: Bradesco also
+claims `/app_redirect/*`, and Inter claims everything so any path is fair game.
+
+Four buttons is the ceiling. A fifth pushes the copy button — which is the
+actual payment — out of the first place the eye lands. Past that, the shape to
+reach for is an "outro banco" button that expands, not a longer permanent row.
 
 ### Candidates, ranked by how many people they reach
 
@@ -38,8 +50,7 @@ PicPay, PagBank, Mercado Pago and Neon are the next tier. Pix itself reaches
 
 | Bank | What its `apple-app-site-association` says | Next step |
 |---|---|---|
-| **Inter** | `inter.co` claims **`*`** — every path on the domain opens `br.com.intermedium` (checked 2026-09-11) | Strongest candidate. Try `https://inter.co/pix` on a device; a wrong path degrades to the app's home screen rather than to Safari, so there is no bad outcome. |
-| **Bradesco** | `banco.bradesco` claims `/deeplink/*` and `/app_redirect/*` for `br.com.bradescora.app` (checked 2026-09-11) | Try `https://banco.bradesco/deeplink/pix` on a device and see which screen it lands on. |
+| ~~Inter~~, ~~Bradesco~~ | — | **Added 2026-09-11**, see the table above. |
 | **Mercado Pago** | `mercadopago.com.br` has no Pix-send path; the nearest is `/money-transfer*` | Low value — `/money-transfer*` is the transfer hub, not Pix. |
 | **Nubank** | Re-checked 2026-09-11: still only `/payment/*` (*Link de Pagamento* — a receivable with a server-issued id, pointed the wrong way for us), plus e-mail/sim/account-linking paths | Nothing to improve without a Link de Pagamento API. Keep the OneLink. |
 | Banco do Brasil, Caixa, Santander, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |

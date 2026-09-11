@@ -82,7 +82,14 @@ def test_an_unrecognised_key_is_quoted_back():
 def test_the_buttons_are_copy_first_then_the_banks():
     _, rows = render("/pix 11144477735 10")
     assert [b.label for b in rows[0]] == ["📋 Copiar código Pix"]
-    assert all(b.url for b in rows[1])
+    assert all(b.url for row in rows[1:] for b in row)
+
+
+def test_the_bank_row_stops_at_four():
+    """A fifth bank pushes the copy button — which is the actual payment —
+    out of the first place the eye lands."""
+    _, rows = render("/pix 11144477735 10")
+    assert sum(len(row) for row in rows[1:]) <= 4
 
 
 # --- inline ----------------------------------------------------------------
