@@ -53,7 +53,22 @@ PicPay, PagBank, Mercado Pago and Neon are the next tier. Pix itself reaches
 | ~~Inter~~, ~~Bradesco~~ | — | **Added 2026-09-11**, see the table above. |
 | **Mercado Pago** | `mercadopago.com.br` has no Pix-send path; the nearest is `/money-transfer*` | Low value — `/money-transfer*` is the transfer hub, not Pix. |
 | **Nubank** | Re-checked 2026-09-11: still only `/payment/*` (*Link de Pagamento* — a receivable with a server-issued id, pointed the wrong way for us), plus e-mail/sim/account-linking paths | Nothing to improve without a Link de Pagamento API. Keep the OneLink. |
-| Banco do Brasil, Caixa, Santander, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |
+| **Santander** | **No manifest at all.** Checked from a real phone browser 2026-09-11 (which walks past the WAF a laptop cannot): both `/.well-known/apple-app-site-association` and the legacy `/apple-app-site-association` redirect to Santander's 404 page. The Android file still 403s from a laptop, but it no longer matters — see below. | **Closed, no button.** Reopen only if Santander starts publishing one. |
+| Banco do Brasil, Caixa, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |
+
+### Why a half-working button is worse than none
+
+Santander is the case that makes the rule. Even if its Android `assetlinks.json`
+turned out to exist, iOS is confirmed absent — so the button would open the app
+for Android users and drop every iPhone user in Safari on a 404. A button that
+fails for half the people who press it reads as a broken bot, and there is no
+way for the message to know which half is pressing.
+
+So the bar for adding a bank is: **a manifest on both platforms, or a link
+already verified on a device.** Itaú is in the bot on the second ground — its
+manifest is unreadable from a laptop too, but someone tapped the link on a
+phone on 2026-08-07 and watched it land on the Pix screen. The WAF never
+mattered; the device check is what produced a working button.
 
 ### How to check one
 
