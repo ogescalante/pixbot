@@ -4,88 +4,94 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Teste — abrir o Nubank</title>
+<title>Teste — Nubank</title>
 <style>
   :root {
     color-scheme: light dark;
     --bg: #ffffff; --fg: #16181c; --muted: #63676e; --line: #e3e5e8;
-    --card: #f6f7f8; --accent: #820ad1;
+    --card: #f6f7f8; --accent: #820ad1; --ok: #0a7d32;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33;
-            --card: #1e2126; }
+            --card: #1e2126; --ok: #35c46a; }
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0; padding: 32px 20px 64px; background: var(--bg); color: var(--fg);
-    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
+  body { margin: 0; padding: 28px 18px 72px; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   main { max-width: 32rem; margin: 0 auto; }
-  h1 { font-size: 1.25rem; margin: 0 0 .5rem; }
-  h2 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .06em;
-       color: var(--muted); margin: 2rem 0 .5rem; }
-  p { color: var(--muted); margin: 0 0 1rem; }
-  a.try {
-    display: block; padding: .875rem 1rem; margin: .5rem 0;
-    background: var(--card); border: 1px solid var(--line); border-radius: .625rem;
-    color: var(--fg); text-decoration: none;
-  }
-  a.try b { display: block; font-size: .9375rem; }
+  h1 { font-size: 1.25rem; margin: 0 0 .4rem; }
+  h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .07em;
+       color: var(--muted); margin: 1.75rem 0 .4rem; }
+  p { color: var(--muted); margin: 0 0 .75rem; font-size: .9375rem; }
+  a.try { display: flex; gap: .75rem; align-items: baseline;
+          padding: .8rem .9rem; margin: .4rem 0; background: var(--card);
+          border: 1px solid var(--line); border-radius: .625rem;
+          color: var(--fg); text-decoration: none; }
+  a.try .n { font-variant-numeric: tabular-nums; font-weight: 700;
+             color: var(--accent); min-width: 1.5rem; }
+  a.try .t { flex: 1; min-width: 0; }
+  a.try b { display: block; font-size: .9375rem; font-weight: 600; }
   a.try code { display: block; font-size: .75rem; color: var(--muted);
-               word-break: break-all; margin-top: .2rem; }
+               word-break: break-all; margin-top: .15rem; }
   .good { border-left: 3px solid var(--accent); }
+  .ref { border-left: 3px solid var(--ok); }
   .note { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem;
           font-size: .8125rem; color: var(--muted); }
+  nav a { color: var(--accent); font-size: .875rem; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Teste — abrir o Nubank</h1>
+  <h1>Teste — Nubank</h1>
   <p>
-    Toca um de cada vez e anota o que acontece: abriu o app? em que tela?
-    abriu o navegador? não fez nada?
+    Toca um de cada vez e anota o número + o que aconteceu: abriu o app? em que
+    tela? abriu o navegador? nada?
   </p>
-
-  <h2>Com evidência — caminhos que o app declara</h2>
-  <p>
-    Estes três estão no manifesto do próprio Nubank, então o app
-    <em>tem</em> que abrir. A dúvida é só em que tela.
-  </p>
-
-  <a class="try good" href="https://nubank.com.br/payment/">
-    <b>1. Caminho /payment/ (declarado no manifesto)</b>
-    <code>https://nubank.com.br/payment/</code>
-  </a>
-  <a class="try good" href="https://nubank.onelink.me/jTeG/">
-    <b>2. OneLink jTeG — outra campanha do mesmo app</b>
-    <code>https://nubank.onelink.me/jTeG/</code>
-  </a>
-  <a class="try good" href="https://nubank.onelink.me/gHLl/">
-    <b>3. OneLink gHLl — outra campanha do mesmo app</b>
-    <code>https://nubank.onelink.me/gHLl/</code>
-  </a>
+  <nav><a href="santander.html">→ testes do Santander</a></nav>
 
   <h2>Referência — o que o bot usa hoje</h2>
-  <a class="try" href="https://nubank.onelink.me/g4UH/pix">
-    <b>4. O botão atual (abre na tela inicial)</b>
-    <code>https://nubank.onelink.me/g4UH/pix</code>
+  <p>Abre o app na tela inicial. O <code>/pix</code> no fim é decorativo: a
+     AppsFlyer ignora. Qualquer coisa que caia mais perto do Pix ganha.</p>
+  <a class="try ref" href="https://nubank.onelink.me/g4UH/pix">
+    <span class="n">0</span><span class="t"><b>g4UH/pix (atual)</b>
+    <code>https://nubank.onelink.me/g4UH/pix</code></span>
   </a>
 
-  <h2>Chutes — esquemas próprios, sem evidência</h2>
+  <h2>Com evidência — o app declara estes</h2>
   <p>
-    Nenhum destes está documentado em lugar nenhum. Se um abrir o app, a gente
-    monta a página igual à do Santander.
+    Os três saem de manifesto, não de chute. O do <code>nubank.com.br</code>
+    declara <code>/payment/*</code>; o do OneLink lista <strong>três</strong>
+    templates pro mesmo app e a gente só usa um.
   </p>
+  <a class="try good" href="https://nubank.com.br/payment/"><span class="n">1</span><span class="t"><b>/payment/ — caminho declarado no manifesto</b><code>https://nubank.com.br/payment/</code></span></a>
+  <a class="try good" href="https://nubank.onelink.me/jTeG/"><span class="n">2</span><span class="t"><b>OneLink jTeG — outra campanha do mesmo app</b><code>https://nubank.onelink.me/jTeG/</code></span></a>
+  <a class="try good" href="https://nubank.onelink.me/gHLl/"><span class="n">3</span><span class="t"><b>OneLink gHLl — outra campanha do mesmo app</b><code>https://nubank.onelink.me/gHLl/</code></span></a>
+  <a class="try good" href="https://nubank.onelink.me/jTeG/pix"><span class="n">4</span><span class="t"><b>jTeG com /pix no fim</b><code>https://nubank.onelink.me/jTeG/pix</code></span></a>
+  <a class="try good" href="https://nubank.onelink.me/gHLl/pix"><span class="n">5</span><span class="t"><b>gHLl com /pix no fim</b><code>https://nubank.onelink.me/gHLl/pix</code></span></a>
 
-  <a class="try" href="nubank://"><b>5.</b><code>nubank://</code></a>
-  <a class="try" href="nubank://pix"><b>6.</b><code>nubank://pix</code></a>
-  <a class="try" href="nubank://payment"><b>7.</b><code>nubank://payment</code></a>
-  <a class="try" href="nuapp://"><b>8.</b><code>nuapp://</code></a>
-  <a class="try" href="nu://"><b>9.</b><code>nu://</code></a>
+  <h2>OneLink com deep_link_value — o parâmetro que a AppsFlyer lê</h2>
+  <p>
+    O template ignora <code>/pix</code> no caminho, mas talvez não ignore o
+    parâmetro que a própria AppsFlyer usa pra rotear.
+  </p>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix"><span class="n">6</span><span class="t"><b>deep_link_value=pix</b><code>…/g4UH/pix?deep_link_value=pix</code></span></a>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nuapp%3A%2F%2Fpix"><span class="n">7</span><span class="t"><b>af_dp=nuapp://pix</b><code>…/g4UH/pix?af_dp=nuapp%3A%2F%2Fpix</code></span></a>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nubank%3A%2F%2Fpix"><span class="n">8</span><span class="t"><b>af_dp=nubank://pix</b><code>…/g4UH/pix?af_dp=nubank%3A%2F%2Fpix</code></span></a>
+
+  <h2>Chutes — esquemas próprios, nada documentado</h2>
+  <p>Não achei nenhuma documentação pública de esquema do Nubank. Se um abrir
+     o app, a gente monta a página igual à do Santander.</p>
+  <a class="try" href="nubank://"><span class="n">9</span><span class="t"><b>nubank://</b><code>nubank://</code></span></a>
+  <a class="try" href="nubank://pix"><span class="n">10</span><span class="t"><b>nubank://pix</b><code>nubank://pix</code></span></a>
+  <a class="try" href="nubank://payment"><span class="n">11</span><span class="t"><b>nubank://payment</b><code>nubank://payment</code></span></a>
+  <a class="try" href="nuapp://"><span class="n">12</span><span class="t"><b>nuapp://</b><code>nuapp://</code></span></a>
+  <a class="try" href="nuapp://pix"><span class="n">13</span><span class="t"><b>nuapp://pix</b><code>nuapp://pix</code></span></a>
+  <a class="try" href="nu://"><span class="n">14</span><span class="t"><b>nu://</b><code>nu://</code></span></a>
+  <a class="try" href="nuconta://"><span class="n">15</span><span class="t"><b>nuconta://</b><code>nuconta://</code></span></a>
 
   <p class="note">
-    Página de teste, não faz parte do bot. Nenhum dado de pagamento passa por
-    aqui — são links e nada mais. Some quando o teste terminar.
+    Página de teste, não faz parte do bot — só links. Um esquema que o telefone
+    não conhece simplesmente não faz nada; não quebra nada.
   </p>
 </main>
 </body>

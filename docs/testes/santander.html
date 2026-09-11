@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Teste — Santander</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16181c; --muted: #63676e; --line: #e3e5e8;
+    --card: #f6f7f8; --accent: #ec0000; --ok: #0a7d32;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33;
+            --card: #1e2126; --ok: #35c46a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px 18px 72px; background: var(--bg); color: var(--fg);
+         font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 32rem; margin: 0 auto; }
+  h1 { font-size: 1.25rem; margin: 0 0 .4rem; }
+  h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .07em;
+       color: var(--muted); margin: 1.75rem 0 .4rem; }
+  p { color: var(--muted); margin: 0 0 .75rem; font-size: .9375rem; }
+  a.try { display: flex; gap: .75rem; align-items: baseline;
+          padding: .8rem .9rem; margin: .4rem 0; background: var(--card);
+          border: 1px solid var(--line); border-radius: .625rem;
+          color: var(--fg); text-decoration: none; }
+  a.try .n { font-variant-numeric: tabular-nums; font-weight: 700;
+             color: var(--accent); min-width: 1.5rem; }
+  a.try .t { flex: 1; min-width: 0; }
+  a.try b { display: block; font-size: .9375rem; font-weight: 600; }
+  a.try code { display: block; font-size: .75rem; color: var(--muted);
+               word-break: break-all; margin-top: .15rem; }
+  .ref { border-left: 3px solid var(--ok); }
+  .note { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem;
+          font-size: .8125rem; color: var(--muted); }
+  nav a { color: var(--accent); font-size: .875rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Teste — Santander</h1>
+  <p>
+    Toca um de cada vez e anota o número + o que aconteceu: abriu o app? em que
+    tela? abriu o navegador? nada?
+  </p>
+  <nav><a href="nubank.html">→ testes do Nubank</a></nav>
+
+  <h2>Referência — o que já funciona</h2>
+  <p>Abre o app na área de <strong>chaves Pix</strong>, não em pagar.</p>
+  <a class="try ref" href="santanderpf://deeplink?tela=pixEditardados">
+    <span class="n">0</span><span class="t"><b>Editar dados (atual)</b>
+    <code>santanderpf://deeplink?tela=pixEditardados</code></span>
+  </a>
+
+  <h2>Pagar / transferir — o que a gente quer</h2>
+  <p>
+    Mesmo esquema, mesma convenção de escrita do que funciona
+    (<code>pix</code> + primeira letra maiúscula, resto minúsculo).
+  </p>
+  <a class="try" href="santanderpf://deeplink?tela=pixPagar"><span class="n">1</span><span class="t"><b>pixPagar</b><code>santanderpf://deeplink?tela=pixPagar</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixTransferir"><span class="n">2</span><span class="t"><b>pixTransferir</b><code>santanderpf://deeplink?tela=pixTransferir</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixEnviar"><span class="n">3</span><span class="t"><b>pixEnviar</b><code>santanderpf://deeplink?tela=pixEnviar</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixCopiaecola"><span class="n">4</span><span class="t"><b>pixCopiaecola</b><code>santanderpf://deeplink?tela=pixCopiaecola</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixPagarcopiaecola"><span class="n">5</span><span class="t"><b>pixPagarcopiaecola</b><code>santanderpf://deeplink?tela=pixPagarcopiaecola</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixColarcodigo"><span class="n">6</span><span class="t"><b>pixColarcodigo</b><code>santanderpf://deeplink?tela=pixColarcodigo</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixLerqrcode"><span class="n">7</span><span class="t"><b>pixLerqrcode</b><code>santanderpf://deeplink?tela=pixLerqrcode</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixQrcode"><span class="n">8</span><span class="t"><b>pixQrcode</b><code>santanderpf://deeplink?tela=pixQrcode</code></span></a>
+
+  <h2>Área Pix genérica — se nenhum acima pegar</h2>
+  <a class="try" href="santanderpf://deeplink?tela=pix"><span class="n">9</span><span class="t"><b>pix</b><code>santanderpf://deeplink?tela=pix</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixArea"><span class="n">10</span><span class="t"><b>pixArea</b><code>santanderpf://deeplink?tela=pixArea</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=pixHome"><span class="n">11</span><span class="t"><b>pixHome</b><code>santanderpf://deeplink?tela=pixHome</code></span></a>
+  <a class="try" href="santanderpf://deeplink?tela=transferencias"><span class="n">12</span><span class="t"><b>transferencias</b><code>santanderpf://deeplink?tela=transferencias</code></span></a>
+  <a class="try" href="santanderpf://deeplink"><span class="n">13</span><span class="t"><b>sem tela (só abrir o app)</b><code>santanderpf://deeplink</code></span></a>
+  <a class="try" href="santanderpf://"><span class="n">14</span><span class="t"><b>esquema puro</b><code>santanderpf://</code></span></a>
+
+  <h2>Pela web — o mesmo catálogo, parâmetro fc</h2>
+  <p>
+    O link que você achou usa <code>fc=</code>. Se um destes cair em pagar, vale
+    tanto quanto — e não precisa de página nossa no meio.
+  </p>
+  <a class="try ref" href="https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?dse_operationName=LoginNMW&tplink=s&cp=transferenciasgerenciarm&fc=transferenciasgerenciarminhaschaves"><span class="n">15</span><span class="t"><b>gerenciarminhaschaves (o que você achou)</b><code>…&amp;fc=transferenciasgerenciarminhaschaves</code></span></a>
+  <a class="try" href="https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?dse_operationName=LoginNMW&tplink=s&cp=transferenciasgerenciarm&fc=transferenciaspix"><span class="n">16</span><span class="t"><b>transferenciaspix</b><code>…&amp;fc=transferenciaspix</code></span></a>
+  <a class="try" href="https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?dse_operationName=LoginNMW&tplink=s&cp=transferenciasgerenciarm&fc=transferenciaspixpagar"><span class="n">17</span><span class="t"><b>transferenciaspixpagar</b><code>…&amp;fc=transferenciaspixpagar</code></span></a>
+  <a class="try" href="https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?dse_operationName=LoginNMW&tplink=s&cp=transferenciasgerenciarm&fc=transferenciaspixcopiaecola"><span class="n">18</span><span class="t"><b>transferenciaspixcopiaecola</b><code>…&amp;fc=transferenciaspixcopiaecola</code></span></a>
+
+  <p class="note">
+    Página de teste, não faz parte do bot — só links. Um esquema que o telefone
+    não conhece simplesmente não faz nada; não quebra nada.
+  </p>
+</main>
+</body>
+</html>
