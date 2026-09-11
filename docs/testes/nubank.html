@@ -78,31 +78,33 @@
   <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix"><span class="n">7</span><span class="t"><b>af_dp=nu-mmp://pix (esquema real)</b><code>…/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix</code></span></a>
   <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix&deep_link_value=pix"><span class="n">8</span><span class="t"><b>af_dp + deep_link_value juntos</b><code>…?af_dp=nu-mmp%3A%2F%2Fpix&amp;deep_link_value=pix</code></span></a>
 
-  <h2>Esquema confirmado — nu-mmp://</h2>
+  <h2>Esquema confirmado — e o app é Flutter</h2>
   <p>
-    Tirado do próprio app instalado no seu iPhone
-    (<code>CFBundleURLTypes</code> de <code>com.nu.iphone</code>). Não é chute:
-    é o esquema que o Nubank registra. <code>nubank://</code> e
-    <code>nuapp://</code>, que eu tinha chutado antes, não existem.
-    O caminho depois do <code>://</code> aí sim é chute — o Info.plist não
-    guarda isso.
+    <code>nu-mmp</code> saiu do <code>CFBundleURLTypes</code> do app instalado:
+    é certo. E o <code>CFBundleExecutable</code> é <code>Runner</code>, com
+    <code>DART_DEFINES</code> do lado — <strong>o app é Flutter</strong>.
   </p>
-  <a class="try ref" href="nu-mmp://"><span class="n">9</span><span class="t"><b>só o esquema — CONFIRMADO, cai na tela inicial</b><code>nu-mmp://</code></span></a>
-  <a class="try good" href="nu-mmp://pix"><span class="n">10</span><span class="t"><b>pix</b><code>nu-mmp://pix</code></span></a>
-  <a class="try good" href="nu-mmp://pix/transfer"><span class="n">11</span><span class="t"><b>pix/transfer</b><code>nu-mmp://pix/transfer</code></span></a>
-  <a class="try good" href="nu-mmp://pix/copy-paste"><span class="n">12</span><span class="t"><b>pix/copy-paste</b><code>nu-mmp://pix/copy-paste</code></span></a>
-  <a class="try good" href="nu-mmp://pix/paste"><span class="n">13</span><span class="t"><b>pix/paste</b><code>nu-mmp://pix/paste</code></span></a>
-  <a class="try good" href="nu-mmp://pix/send"><span class="n">14</span><span class="t"><b>pix/send</b><code>nu-mmp://pix/send</code></span></a>
-  <a class="try good" href="nu-mmp://transfer"><span class="n">15</span><span class="t"><b>transfer</b><code>nu-mmp://transfer</code></span></a>
-  <a class="try good" href="nu-mmp://transfers"><span class="n">16</span><span class="t"><b>transfers</b><code>nu-mmp://transfers</code></span></a>
-  <a class="try good" href="nu-mmp://send-money"><span class="n">17</span><span class="t"><b>send-money</b><code>nu-mmp://send-money</code></span></a>
-  <a class="try good" href="nu-mmp://payments"><span class="n">18</span><span class="t"><b>payments</b><code>nu-mmp://payments</code></span></a>
-  <a class="try good" href="nu-mmp://payment"><span class="n">19</span><span class="t"><b>payment</b><code>nu-mmp://payment</code></span></a>
-  <a class="try good" href="nu-mmp://qr-code"><span class="n">20</span><span class="t"><b>qr-code</b><code>nu-mmp://qr-code</code></span></a>
-  <a class="try good" href="nu-mmp://pix?action=pay"><span class="n">21</span><span class="t"><b>pix?action=pay</b><code>nu-mmp://pix?action=pay</code></span></a>
-  <a class="try good" href="nu-mmp://deeplink?screen=pix"><span class="n">22</span><span class="t"><b>deeplink?screen=pix</b><code>nu-mmp://deeplink?screen=pix</code></span></a>
-  <a class="try good" href="nu-mmp://navigate?to=pix"><span class="n">23</span><span class="t"><b>navigate?to=pix</b><code>nu-mmp://navigate?to=pix</code></span></a>
-  <a class="try good" href="nu-mmp://open?path=pix"><span class="n">24</span><span class="t"><b>open?path=pix</b><code>nu-mmp://open?path=pix</code></span></a>
+  <p>
+    Isso muda a forma do link. Router de Flutter casa em <code>uri.path</code>,
+    e em <code>nu-mmp://pix</code> o "pix" é o <em>host</em>, não o caminho — o
+    path fica vazio, o router vê "/" e abre a tela inicial. Que é exatamente o
+    que aconteceu. As barras triplas abaixo põem a rota no path.
+  </p>
+  <a class="try ref" href="nu-mmp://"><span class="n">9</span><span class="t"><b>só o esquema — base de comparação (tela inicial)</b><code>nu-mmp://</code></span></a>
+  <a class="try good" href="nu-mmp:///pix"><span class="n">10</span><span class="t"><b>/pix</b><code>nu-mmp:///pix</code></span></a>
+  <a class="try good" href="nu-mmp:///pix/transfer"><span class="n">11</span><span class="t"><b>/pix/transfer</b><code>nu-mmp:///pix/transfer</code></span></a>
+  <a class="try good" href="nu-mmp:///pix/copy-paste"><span class="n">12</span><span class="t"><b>/pix/copy-paste</b><code>nu-mmp:///pix/copy-paste</code></span></a>
+  <a class="try good" href="nu-mmp:///pix/paste"><span class="n">13</span><span class="t"><b>/pix/paste</b><code>nu-mmp:///pix/paste</code></span></a>
+  <a class="try good" href="nu-mmp:///pix/send"><span class="n">14</span><span class="t"><b>/pix/send</b><code>nu-mmp:///pix/send</code></span></a>
+  <a class="try good" href="nu-mmp:///transfer"><span class="n">15</span><span class="t"><b>/transfer</b><code>nu-mmp:///transfer</code></span></a>
+  <a class="try good" href="nu-mmp:///transfers"><span class="n">16</span><span class="t"><b>/transfers</b><code>nu-mmp:///transfers</code></span></a>
+  <a class="try good" href="nu-mmp:///payments"><span class="n">17</span><span class="t"><b>/payments</b><code>nu-mmp:///payments</code></span></a>
+  <a class="try good" href="nu-mmp:///send-money"><span class="n">18</span><span class="t"><b>/send-money</b><code>nu-mmp:///send-money</code></span></a>
+  <a class="try good" href="nu-mmp:///qr-code"><span class="n">19</span><span class="t"><b>/qr-code</b><code>nu-mmp:///qr-code</code></span></a>
+  <a class="try good" href="nu-mmp://app/pix"><span class="n">20</span><span class="t"><b>host app + /pix</b><code>nu-mmp://app/pix</code></span></a>
+  <a class="try good" href="nu-mmp://nubank/pix"><span class="n">21</span><span class="t"><b>host nubank + /pix</b><code>nu-mmp://nubank/pix</code></span></a>
+  <a class="try good" href="nu-mmp://deeplink/pix"><span class="n">22</span><span class="t"><b>host deeplink + /pix</b><code>nu-mmp://deeplink/pix</code></span></a>
+  <a class="try good" href="nu-mmp:///pix?action=pay"><span class="n">23</span><span class="t"><b>/pix com query</b><code>nu-mmp:///pix?action=pay</code></span></a>
 
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
