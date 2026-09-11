@@ -66,13 +66,29 @@ INTER_PIX = "https://inter.co/pix"
 # caveat as Inter: the app opens, the screen it opens on is unverified.
 BRADESCO_PIX = "https://banco.bradesco/deeplink/pix"
 
+# Santander publishes no app-link manifest on santander.com.br — both the
+# .well-known and legacy paths 404 from a real phone browser, and no AppsFlyer
+# or Branch link exists either (santander.onelink.me serves the empty catch-all
+# manifest, unlike nubank.onelink.me which names the app and the template).
+#
+# This one comes from the other direction, the way Itaú's did: a link verified
+# on a device, on a domain whose manifest Akamai will not serve to a laptop.
+# The query string is Santander's own routing — `fc=transferenciasgerenciar
+# minhaschaves` is the Pix keys area — so it lands inside Pix rather than on
+# the app's front door. Verified opening the bank 2026-09-11.
+SANTANDER_PIX = (
+    "https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto"
+    "?dse_operationName=LoginNMW&tplink=s&cp=transferenciasgerenciarm"
+    "&fc=transferenciasgerenciarminhaschaves"
+)
+
 
 def buttons(code: str) -> list[list[Button]]:
     """Copy first — it is the whole product. The banks are a convenience row.
 
-    Four is the ceiling. A fifth and a sixth push the copy button off the
-    first thing the eye lands on, and the copy button is the payment; the
-    banks only save hunting for an icon.
+    Rows of three, never one long row: five buttons across truncate their own
+    labels on a phone. The copy button stays alone, wide and green above them,
+    which is what keeps it the thing the thumb goes to first.
     """
     return [
         # Green, alone, and in caps. A bank button cannot carry the code with
@@ -83,6 +99,7 @@ def buttons(code: str) -> list[list[Button]]:
         [Button("📋 COPIAR O CÓDIGO PIX", copy=code, style="success")],
         [Button("🟠 Itaú", url=ITAU_PIX),
          Button("🟣 Nubank", url=NUBANK_APP),
-         Button("🟧 Inter", url=INTER_PIX),
-         Button("🔴 Bradesco", url=BRADESCO_PIX)],
+         Button("🟧 Inter", url=INTER_PIX)],
+        [Button("🔴 Bradesco", url=BRADESCO_PIX),
+         Button("🟥 Santander", url=SANTANDER_PIX)],
     ]

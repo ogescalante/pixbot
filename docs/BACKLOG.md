@@ -30,15 +30,38 @@ row, not a feature — worth expanding cheaply, not worth engineering around.
 | Inter | `https://inter.co/pix` | **Opens the app, screen unverified.** `inter.co` claims `*` on iOS (`br.com.intermedium`) and delegates the whole domain on Android (`br.com.intermedium`), so it cannot fall through to a browser. Added 2026-09-11. |
 | Bradesco | `https://banco.bradesco/deeplink/pix` | **Opens the app, screen unverified.** `/deeplink/*` is claimed by the consumer app on iOS (`br.com.bradescora.app`) and the domain is delegated to `com.bradesco` on Android. Added 2026-09-11. |
 
+**How Santander got in, after looking closed.** Every manifest route was a
+dead end: `santander.com.br` 404s both app-link paths from a real phone
+browser, and no attribution link exists — `santander.onelink.me` serves
+AppsFlyer's empty catch-all (`{"applinks":{"apps":[],"details":[]}}`), unlike
+`nubank.onelink.me`, whose manifest names the app *and* carries the `/g4UH/*`
+template we ship. Branch, Adjust and the other OneLink subdomains do not
+resolve at all.
+
+What worked came from the other direction: a link found and tapped on a phone,
+on `pf.santandernet.com.br` — a domain whose manifest Akamai will not serve to
+a laptop either. Which is the whole lesson. **A blocked manifest never
+disqualified a bank; it only meant the laptop could not do the check.** The
+device test is the higher standard, not the fallback, and it is how both Itaú
+and Santander got their buttons. Do not close a bank on a fetch failure again.
+
+Santander's query string is its own routing, and `fc=transferenciasgerenciar
+minhaschaves` is the Pix keys area — so it lands inside Pix rather than on the
+app's front door. Whether a different `fc` reaches "pagar com copia e cola"
+directly is untested; the parameter is clearly a catalog and worth one more tap
+to explore.
+
 **Still to verify on a device:** whether Inter and Bradesco land on their Pix
 screens or on their home screens. Both are safe either way — the worst case is
 the app's home screen, which is still better than hunting for the icon — but if
 one lands somewhere useless, a different path may do better: Bradesco also
 claims `/app_redirect/*`, and Inter claims everything so any path is fair game.
 
-Four buttons is the ceiling. A fifth pushes the copy button — which is the
-actual payment — out of the first place the eye lands. Past that, the shape to
-reach for is an "outro banco" button that expands, not a longer permanent row.
+Banks go in rows of three, below the copy button. Five across truncate their
+own labels on a phone; the copy button stays alone, wide and green on top,
+because it is the actual payment and the banks only save hunting for an icon.
+Past six, the shape to reach for is an "outro banco" button that expands, not a
+third permanent row.
 
 ### Candidates, ranked by how many people they reach
 
@@ -53,7 +76,7 @@ PicPay, PagBank, Mercado Pago and Neon are the next tier. Pix itself reaches
 | ~~Inter~~, ~~Bradesco~~ | — | **Added 2026-09-11**, see the table above. |
 | **Mercado Pago** | `mercadopago.com.br` has no Pix-send path; the nearest is `/money-transfer*` | Low value — `/money-transfer*` is the transfer hub, not Pix. |
 | **Nubank** | Re-checked 2026-09-11: still only `/payment/*` (*Link de Pagamento* — a receivable with a server-issued id, pointed the wrong way for us), plus e-mail/sim/account-linking paths | Nothing to improve without a Link de Pagamento API. Keep the OneLink. |
-| **Santander** | **No manifest at all.** Checked from a real phone browser 2026-09-11 (which walks past the WAF a laptop cannot): both `/.well-known/apple-app-site-association` and the legacy `/apple-app-site-association` redirect to Santander's 404 page. The Android file still 403s from a laptop, but it no longer matters — see below. | **Closed, no button.** Reopen only if Santander starts publishing one. |
+| Santander | `https://pf.santandernet.com.br/LOGBBR_NS_ENS/BtoChannelDriver.ssobto?…&fc=transferenciasgerenciarminhaschaves` | **Opens the bank. Verified on device 2026-09-11.** Added the same way Itaú was — see below. |
 | Banco do Brasil, Caixa, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |
 
 ### Why a half-working button is worse than none

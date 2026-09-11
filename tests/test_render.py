@@ -94,11 +94,12 @@ def test_the_buttons_are_copy_first_then_the_banks():
     assert all(b.url for row in rows[1:] for b in row)
 
 
-def test_the_bank_row_stops_at_four():
-    """A fifth bank pushes the copy button — which is the actual payment —
-    out of the first place the eye lands."""
+def test_the_banks_sit_below_the_copy_button_in_rows_of_three():
+    """Five across truncate their own labels on a phone, and the copy button —
+    which is the actual payment — has to stay the thing the thumb finds."""
     _, rows = render("/pix 11144477735 10")
-    assert sum(len(row) for row in rows[1:]) <= 4
+    assert len(rows[0]) == 1 and rows[0][0].copy      # copy alone on top
+    assert all(len(row) <= 3 for row in rows[1:])
 
 
 # --- inline ----------------------------------------------------------------
