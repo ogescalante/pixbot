@@ -30,9 +30,13 @@ then the mandatory 9). Run both:
 | CPF check digits | mobile shape | reading |
 |---|---|---|
 | ok | no | **CPF**, silently |
-| ok | yes | **CPF**, and says the other reading exists (~1% of mobiles pass the CPF checksum) |
-| fail | yes | **telefone** → `+55…` |
+| ok | yes | **CPF**, and this is the only case that warns (~1% of mobiles pass the CPF checksum) |
+| fail | yes | **telefone** → `+55…`, silently |
 | fail | no | refused, with what it accepts |
+
+The collision is the only thing worth a `⚠️`. When the checksum settles it,
+explaining the arithmetic on every payment is the same noise as warning on
+every payment — read once, ignored after.
 
 Measured over 200k samples: ~1.0% of real mobiles also pass the CPF checksum,
 and ~6.7% of real CPFs look like a mobile. The second group is why a

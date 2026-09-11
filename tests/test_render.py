@@ -62,7 +62,7 @@ def test_a_phone_reading_is_visible_in_the_reply():
     assert "R$ 250,00" in text
     assert "+55 (45) 99999-9999" in text
     assert "(telefone)" in text
-    assert "dígito verificador" in text
+    assert "⚠️" not in text     # unambiguous: no warning to read past
     assert "Confere o nome" in text
     assert rows[0][0].copy.startswith("000201")
 
@@ -93,6 +93,14 @@ def test_the_bank_row_stops_at_four():
 
 
 # --- inline ----------------------------------------------------------------
+
+
+def test_only_the_collision_warns():
+    """A phone is silent, a CPF is silent, and the ~1% that is both says so.
+    A warning that fires on every payment is one he stops reading."""
+    assert "⚠️" not in render("/pix 45999999999 250")[0]
+    assert "⚠️" not in render("/pix 11144477735 250")[0]
+    assert "⚠️" in render("/pix 45926018153 250")[0]
 
 
 def test_an_ambiguous_key_offers_both_cards():

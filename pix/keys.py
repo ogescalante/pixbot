@@ -13,9 +13,11 @@ only a shape: a real DDD followed by the mandatory 9. Run both and the readings
 separate:
 
     check digits ok, not mobile-shaped  ->  CPF, no doubt
-    check digits ok, mobile-shaped      ->  CPF, but say so out loud (~1% of
-                                            mobiles pass the CPF checksum)
-    check digits fail, mobile-shaped    ->  telefone  <- the case above
+    check digits ok, mobile-shaped      ->  CPF, and this is the *only* case
+                                            that says anything out loud (~1%
+                                            of mobiles pass the CPF checksum)
+    check digits fail, mobile-shaped    ->  telefone, silently  <- the case
+                                            above
     neither                             ->  not a key we recognise
 
 An explicit `cpf` / `telefone` at the end of the command settles it regardless;
@@ -190,8 +192,10 @@ def readings(raw: str, hint: str | None = None) -> list[Key]:
     if cpf_ok:
         return [as_cpf]
     if mobile_ok:
-        return [Key("+55" + digits, PHONE, "não é CPF: o dígito verificador não "
-                                           "bate, e o número tem cara de celular")]
+        # No note. The checksum settled it, and a line explaining the
+        # arithmetic on every single phone payment is the same noise the old
+        # "Li como CPF" warning was — read once, ignored after.
+        return [Key("+55" + digits, PHONE)]
     return []
 
 

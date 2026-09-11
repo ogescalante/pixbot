@@ -29,7 +29,7 @@ def test_a_mobile_typed_without_plus55_is_not_a_cpf():
     key = normalize_key("45999999999")
     assert key.kind == PHONE
     assert key.value == "+5545999999999"
-    assert "dígito verificador" in key.note
+    assert key.note == ""       # the checksum settled it; nothing to explain
 
 
 def test_a_real_cpf_that_looks_like_a_mobile_is_still_a_cpf():
