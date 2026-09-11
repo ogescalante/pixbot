@@ -160,6 +160,24 @@
   <a class="try good" href="nu-mmp://?deep_link_value=send_money"><span class="n">64</span><span class="t"><b>send_money</b><code>nu-mmp://?deep_link_value=send_money</code></span></a>
   <a class="try good" href="nu-mmp://?deep_link_value=money_transfer"><span class="n">65</span><span class="t"><b>money_transfer</b><code>nu-mmp://?deep_link_value=money_transfer</code></span></a>
 
+  <h2>O terceiro esquema — o hash, nunca testado</h2>
+  <p>
+    O <code>CFBundleURLTypes</code> do Nubank tem três esquemas:
+    <code>nu-mmp</code> (AppsFlyer), o do Google Sign-In, e este
+    — <code>haa5d71fcb167ad735460d9053234afd9e</code> — registrado como <code>Editor</code>, ou seja, o app diz
+    ser dono dele.
+  </p>
+  <p>
+    Comparando com o Santander, que publica <code>santanderpf</code> legível: o
+    Nubank <strong>não publica nenhum esquema de marca própria</strong>. Se
+    existe porta de rota interna, a chance é de ser esta. "ha" + 32 hex tem cara
+    de md5, mas não bate com hash óbvio nenhum (bundle id, team id, nome).
+  </p>
+  <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e://"><span class="n">66</span><span class="t"><b>só o esquema — abre o app?</b><code>haa5d71fcb167ad735460d9053234afd9e://</code></span></a>
+  <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e://pix"><span class="n">67</span><span class="t"><b>host pix</b><code>haa5d71fcb167ad735460d9053234afd9e://pix</code></span></a>
+  <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e:///pix"><span class="n">68</span><span class="t"><b>caminho /pix</b><code>haa5d71fcb167ad735460d9053234afd9e:///pix</code></span></a>
+  <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e://?deep_link_value=pix"><span class="n">69</span><span class="t"><b>deep_link_value=pix</b><code>haa5d71fcb167ad735460d9053234afd9e://?deep_link_value=pix</code></span></a>
+
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
     não conhece simplesmente não faz nada; não quebra nada.
