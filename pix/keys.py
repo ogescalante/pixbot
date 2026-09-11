@@ -3,7 +3,7 @@ one decision this bot exists to get right.
 
 A CPF and a Brazilian mobile number are both eleven digits. Length alone cannot
 tell them apart, so reading "eleven digits" as "CPF" pays a stranger every time
-someone types a phone number without the +55. `45999999999` is a real example:
+someone types a phone number without the +55. `45999999999` has that shape:
 DDD 45, mobile, and it was being turned into a CPF payment.
 
 The tie-break is arithmetic. A CPF carries two check digits computed from the

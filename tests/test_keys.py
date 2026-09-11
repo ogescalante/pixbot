@@ -17,13 +17,13 @@ from pix.keys import (
 
 
 def test_a_mobile_typed_without_plus55_is_not_a_cpf():
-    """45999999999 is a real mobile (DDD 45) that was being paid as a CPF.
+    """45999999999 is a mobile (DDD 45) of the shape that was being paid as a CPF.
 
-    Its check digits would have to be 13, not 51 — so no CPF registry would
+    Its check digits would have to be 79, not 99 — so no CPF registry would
     ever resolve it, and reading it as one sends money to whoever does own
     that number's CPF-shaped neighbour.
     """
-    assert cpf_check_digits("459999999") == "13"
+    assert cpf_check_digits("459999999") == "79"
     assert not is_cpf("45999999999")
 
     key = normalize_key("45999999999")
