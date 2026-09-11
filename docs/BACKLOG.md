@@ -202,3 +202,45 @@ CPF reading with the note instead of two cards.
 The two copies are deliberate duplication, not a shared package — one is a
 public bot with no database and the other lives inside a private app. If they
 drift, `pix/keys.py` here is the canonical one.
+
+### Nubank deeplink teardown — the definitive result (2026-09-11)
+
+Reverse-engineered from `libapp.so` (the Dart snapshot) inside the free Android
+XAPK — same Flutter codebase as iOS, and Android has no FairPlay encryption, so
+no Apple ID / jailbreak / ipatool needed. This is the method that finally worked
+after Mac App Store (opted out), Configurator (no cache) and ipatool (null
+storefront) all failed.
+
+```
+curl -L "https://d.apkpure.com/b/APK/com.nu.production?version=latest" -o nu.xapk
+unzip nu.xapk config.arm64_v8a.apk
+unzip config.arm64_v8a.apk lib/arm64-v8a/libapp.so
+strings -n 4 lib/arm64-v8a/libapp.so | grep -oE 'nuapp://[A-Za-z0-9/_.:{}=?&-]+' | sort -u
+```
+
+**Scheme:** `nuapp://`, invoked on iOS via the base64 envelope
+`https://nuapp.nubank.com.br/<base64("nuapp://<route>")>` (the raw scheme is not
+in the iOS CFBundleURLTypes, so `nuapp://` typed directly does nothing).
+
+**Reachable screens by deeplink:** `shell-mobile/screen/dashboard`,
+`shell-mobile/screen/settings`, and a fixed set of flows
+(`credit-card/bill-payment`, `credit-card/limit`, `secured-lines/new`,
+`investments/nubank-terms-screen`, `chat`, `nuhelp/...`, `pin/challenge`) plus
+the `bdc/<codename>/expr/<action>` server-driven flows. Full literal list is in
+the test page git history.
+
+**No Pix screen is addressable.** The Pix hub is server-driven content (`bdc`),
+built at runtime — there is no `nuapp://pix/...` route in the binary.
+
+**Prefill exists but is walled off.** `bdc/moises/expr/transfer-out.qrcode?qrcode=
+<CODE>&initiation-type=samsung-camera` and `bdc/trabalha/expr/qrcode` carry a
+copia-e-cola, but are gated by three REMOTE config keys fetched per-account:
+`app_caller_handler_enabled`, `app_caller_allowed_hosts` (a server allowlist of
+callers), and `app_caller_migration_samsung_pix`. `initiation-type=samsung-camera`
+is only a hint read AFTER the gate — it cannot be spoofed from a URL, because the
+authorization is a server allowlist keyed to the calling app (Samsung), not a
+parameter. So no public deeplink prefills a Pix payment on a normal device.
+
+**Conclusion:** Nubank's button stays on the OneLink (opens app, home screen).
+The best client-side deeplink is `shell-mobile/screen/dashboard` — home tab, Pix
+one manual tap away. Do not reopen unless Nubank ships a first-party Pix deeplink.
