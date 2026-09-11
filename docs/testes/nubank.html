@@ -110,17 +110,39 @@
   <a class="try good" href="https://nuapp.nubank.com.br/send-money"><span class="n">21</span><span class="t"><b>/send-money</b><code>https://nuapp.nubank.com.br/send-money</code></span></a>
   <a class="try good" href="https://nuapp.nubank.com.br/area-pix"><span class="n">22</span><span class="t"><b>/area-pix</b><code>https://nuapp.nubank.com.br/area-pix</code></span></a>
 
-  <h2>Esquema nu-mmp — é da AppsFlyer, não do roteador</h2>
+  <h2>nu-mmp — família "area-pix", nas quatro formas possíveis</h2>
   <p>
-    <strong>MMP = Mobile Measurement Partner.</strong> O Info.plist traz
-    <code>NSAdvertisingAttributionReportEndpoint: appsflyer-skadnetwork.com</code>,
-    então <code>nu-mmp://</code> é o alvo de <code>af_dp</code> da AppsFlyer.
-    <em>Aviso honesto:</em> <code>deep_link_value</code> é convenção documentada
-    da AppsFlyer — não achei esse nome em arquivo nenhum do Nubank. Testa só se
-    os de cima falharem.
+    O nome vem de como o próprio app chama a seção: <strong>Área Pix</strong>.
+    Mesmo raciocínio que deu <code>pixepagar</code> no Santander — a interface
+    costuma vazar o nome da rota.
   </p>
-  <a class="try" href="nu-mmp://?deep_link_value=pix"><span class="n">23</span><span class="t"><b>deep_link_value=pix</b><code>nu-mmp://?deep_link_value=pix</code></span></a>
-  <a class="try" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix"><span class="n">24</span><span class="t"><b>OneLink + deep_link_value</b><code>…/g4UH/pix?deep_link_value=pix</code></span></a>
+  <p>
+    Como não se sabe se o roteador lê <em>host</em>, <em>caminho</em> ou
+    <em>parâmetro</em>, cada nome vai nas quatro formas. Se uma delas mudar de
+    tela, a forma está achada e o resto é só trocar a palavra.
+  </p>
+  <a class="try good" href="nu-mmp://area-pix"><span class="n">23</span><span class="t"><b>area-pix — host</b><code>nu-mmp://area-pix</code></span></a>
+  <a class="try good" href="nu-mmp:///area-pix"><span class="n">24</span><span class="t"><b>area-pix — path</b><code>nu-mmp:///area-pix</code></span></a>
+  <a class="try good" href="nu-mmp://?deep_link_value=area-pix"><span class="n">25</span><span class="t"><b>area-pix — deep_link_value</b><code>nu-mmp://?deep_link_value=area-pix</code></span></a>
+  <a class="try good" href="nu-mmp://?screen=area-pix"><span class="n">26</span><span class="t"><b>area-pix — screen</b><code>nu-mmp://?screen=area-pix</code></span></a>
+  <a class="try good" href="nu-mmp://areapix"><span class="n">27</span><span class="t"><b>areapix — host</b><code>nu-mmp://areapix</code></span></a>
+  <a class="try good" href="nu-mmp:///areapix"><span class="n">28</span><span class="t"><b>areapix — path</b><code>nu-mmp:///areapix</code></span></a>
+  <a class="try good" href="nu-mmp://?deep_link_value=areapix"><span class="n">29</span><span class="t"><b>areapix — deep_link_value</b><code>nu-mmp://?deep_link_value=areapix</code></span></a>
+  <a class="try good" href="nu-mmp://?screen=areapix"><span class="n">30</span><span class="t"><b>areapix — screen</b><code>nu-mmp://?screen=areapix</code></span></a>
+  <a class="try good" href="nu-mmp://area_pix"><span class="n">31</span><span class="t"><b>area_pix — host</b><code>nu-mmp://area_pix</code></span></a>
+  <a class="try good" href="nu-mmp:///area_pix"><span class="n">32</span><span class="t"><b>area_pix — path</b><code>nu-mmp:///area_pix</code></span></a>
+  <a class="try good" href="nu-mmp://?deep_link_value=area_pix"><span class="n">33</span><span class="t"><b>area_pix — deep_link_value</b><code>nu-mmp://?deep_link_value=area_pix</code></span></a>
+  <a class="try good" href="nu-mmp://?screen=area_pix"><span class="n">34</span><span class="t"><b>area_pix — screen</b><code>nu-mmp://?screen=area_pix</code></span></a>
+  <a class="try good" href="nu-mmp://pix"><span class="n">35</span><span class="t"><b>pix — host</b><code>nu-mmp://pix</code></span></a>
+  <a class="try good" href="nu-mmp:///pix"><span class="n">36</span><span class="t"><b>pix — path</b><code>nu-mmp:///pix</code></span></a>
+  <a class="try good" href="nu-mmp://?deep_link_value=pix"><span class="n">37</span><span class="t"><b>pix — deep_link_value</b><code>nu-mmp://?deep_link_value=pix</code></span></a>
+  <a class="try good" href="nu-mmp://?screen=pix"><span class="n">38</span><span class="t"><b>pix — screen</b><code>nu-mmp://?screen=pix</code></span></a>
+
+  <p class="note" style="border:0;padding:0;margin:.75rem 0 0">
+    <code>deep_link_value</code> é convenção documentada da AppsFlyer — esse
+    nome não aparece em arquivo nenhum do Nubank. Está aqui como forma a testar,
+    não como fato.
+  </p>
 
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
