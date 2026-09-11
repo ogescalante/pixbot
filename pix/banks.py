@@ -66,16 +66,21 @@ INTER_PIX = "https://inter.co/pix"
 # caveat as Inter: the app opens, the screen it opens on is unverified.
 BRADESCO_PIX = "https://banco.bradesco/deeplink/pix"
 
-# Santander has no reachable route and is deliberately absent. The full
-# reasoning is in docs/BACKLOG.md; the short version is that all three doors
-# are shut. No app-link manifest exists on santander.com.br (both paths 404
-# from a real phone browser) and no attribution link exists either. Its
-# custom scheme works when pasted into a browser but cannot be a button —
-# the API answers "Unsupported URL protocol" and refuses to send the message
-# at all. And the one https link that does reach Santander opens their web
-# login inside Telegram's in-app browser, which is a bank credential form in
-# an embedded webview: precisely the habit phishing relies on. Not shipping
-# that to save a tap.
+# Santander publishes no app-link manifest anywhere — both paths on
+# santander.com.br 404 from a real phone browser, and no attribution link
+# exists either (santander.onelink.me serves AppsFlyer's empty catch-all,
+# unlike nubank.onelink.me, whose manifest names the app and carries the
+# /g4UH/* template above). Its own scheme is the only door that opens the app.
+#
+# A scheme cannot be a button: the API answers "Unsupported URL protocol" and
+# refuses to send the message, and as a link in the text it accepts the
+# message and strips the link silently. So the button points at a static page
+# of ours and that page opens the scheme. Nothing about the payment goes
+# through it — the code is on the clipboard before the page exists and never
+# enters the URL.
+#
+# The address hardcodes the repo name. Rename the repo and this button dies.
+SANTANDER_PIX = "https://ogescalante.github.io/pixbot/santander.html"
 
 
 def buttons(code: str) -> list[list[Button]]:
@@ -95,5 +100,6 @@ def buttons(code: str) -> list[list[Button]]:
         [Button("🟠 Itaú", url=ITAU_PIX),
          Button("🟣 Nubank", url=NUBANK_APP),
          Button("🟧 Inter", url=INTER_PIX)],
-        [Button("🔴 Bradesco", url=BRADESCO_PIX)],
+        [Button("🔴 Bradesco", url=BRADESCO_PIX),
+         Button("🟥 Santander", url=SANTANDER_PIX)],
     ]
