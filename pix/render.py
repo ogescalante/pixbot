@@ -58,6 +58,13 @@ def parse(text: str) -> tuple[str | None, float | None, str | None]:
     parts = text.strip().split()
     if parts and parts[0].startswith("/"):
         parts = parts[1:]
+    # `@mandaopixbot 45999999999 120` — inline mode wants the result card
+    # *tapped*, and pressing send instead posts the whole thing as plain text.
+    # In a group Telegram never delivers that to us, but in a direct chat it
+    # arrives and there is no reason to answer a typo when the request is
+    # perfectly legible. No e-mail key starts with @, so this is unambiguous.
+    if parts and parts[0].startswith("@"):
+        parts = parts[1:]
     if not parts:
         return None, None, None
     hint = None

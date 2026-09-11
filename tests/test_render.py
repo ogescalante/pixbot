@@ -24,6 +24,14 @@ def test_the_hint_is_the_last_word_and_leaves_the_amount_alone():
     assert parse("45926018153 1.000,50 cel") == ("45926018153", 1000.5, PHONE)
 
 
+def test_a_mention_that_was_sent_instead_of_tapped_still_works():
+    """Pressing send on `@bot <chave> <valor>` posts it as plain text. A group
+    never delivers that to us, but a direct chat does — and the request is
+    perfectly legible, so answering it beats answering a typo."""
+    assert parse("@mandaopixbot 45999999999 120") == ("45999999999", 120.0, None)
+    assert parse("@mandaopixbot 45999999999 120 cpf")[2] == CPF
+
+
 def test_a_lone_hint_word_is_a_key_not_a_hint():
     """`/pix cpf` has nothing to disambiguate, so it is just a bad key."""
     assert parse("/pix cpf") == ("cpf", None, None)
