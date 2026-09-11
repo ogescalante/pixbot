@@ -49,7 +49,12 @@
   <nav><a href="nubank.html">→ testes do Nubank</a></nav>
 
   <h2>Referência — o que já funciona</h2>
-  <p>Abre o app na área de <strong>chaves Pix</strong>, não em pagar.</p>
+  <p>
+    Abre o app na área de <strong>chaves Pix</strong>, não em pagar. O esquema
+    <code>santanderpf</code> está confirmado: é o que o app registra no
+    <code>CFBundleURLTypes</code> de <code>br.com.santander.minhacontapf</code>,
+    lido direto do iPhone. Só as telas abaixo é que são chute.
+  </p>
   <a class="try ref" href="santanderpf://deeplink?tela=pixEditardados">
     <span class="n">0</span><span class="t"><b>Editar dados (atual)</b>
     <code>santanderpf://deeplink?tela=pixEditardados</code></span>

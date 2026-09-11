@@ -75,19 +75,26 @@
     parâmetro que a própria AppsFlyer usa pra rotear.
   </p>
   <a class="try" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix"><span class="n">6</span><span class="t"><b>deep_link_value=pix</b><code>…/g4UH/pix?deep_link_value=pix</code></span></a>
-  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nuapp%3A%2F%2Fpix"><span class="n">7</span><span class="t"><b>af_dp=nuapp://pix</b><code>…/g4UH/pix?af_dp=nuapp%3A%2F%2Fpix</code></span></a>
-  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nubank%3A%2F%2Fpix"><span class="n">8</span><span class="t"><b>af_dp=nubank://pix</b><code>…/g4UH/pix?af_dp=nubank%3A%2F%2Fpix</code></span></a>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix"><span class="n">7</span><span class="t"><b>af_dp=nu-mmp://pix (esquema real)</b><code>…/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix</code></span></a>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix&deep_link_value=pix"><span class="n">8</span><span class="t"><b>af_dp + deep_link_value juntos</b><code>…?af_dp=nu-mmp%3A%2F%2Fpix&amp;deep_link_value=pix</code></span></a>
 
-  <h2>Chutes — esquemas próprios, nada documentado</h2>
-  <p>Não achei nenhuma documentação pública de esquema do Nubank. Se um abrir
-     o app, a gente monta a página igual à do Santander.</p>
-  <a class="try" href="nubank://"><span class="n">9</span><span class="t"><b>nubank://</b><code>nubank://</code></span></a>
-  <a class="try" href="nubank://pix"><span class="n">10</span><span class="t"><b>nubank://pix</b><code>nubank://pix</code></span></a>
-  <a class="try" href="nubank://payment"><span class="n">11</span><span class="t"><b>nubank://payment</b><code>nubank://payment</code></span></a>
-  <a class="try" href="nuapp://"><span class="n">12</span><span class="t"><b>nuapp://</b><code>nuapp://</code></span></a>
-  <a class="try" href="nuapp://pix"><span class="n">13</span><span class="t"><b>nuapp://pix</b><code>nuapp://pix</code></span></a>
-  <a class="try" href="nu://"><span class="n">14</span><span class="t"><b>nu://</b><code>nu://</code></span></a>
-  <a class="try" href="nuconta://"><span class="n">15</span><span class="t"><b>nuconta://</b><code>nuconta://</code></span></a>
+  <h2>Esquema confirmado — nu-mmp://</h2>
+  <p>
+    Tirado do próprio app instalado no seu iPhone
+    (<code>CFBundleURLTypes</code> de <code>com.nu.iphone</code>). Não é chute:
+    é o esquema que o Nubank registra. <code>nubank://</code> e
+    <code>nuapp://</code>, que eu tinha chutado antes, não existem.
+    O caminho depois do <code>://</code> aí sim é chute — o Info.plist não
+    guarda isso.
+  </p>
+  <a class="try good" href="nu-mmp://"><span class="n">9</span><span class="t"><b>só o esquema — abre o app?</b><code>nu-mmp://</code></span></a>
+  <a class="try good" href="nu-mmp://pix"><span class="n">10</span><span class="t"><b>nu-mmp://pix</b><code>nu-mmp://pix</code></span></a>
+  <a class="try good" href="nu-mmp://pix/pagar"><span class="n">11</span><span class="t"><b>nu-mmp://pix/pagar</b><code>nu-mmp://pix/pagar</code></span></a>
+  <a class="try good" href="nu-mmp://pix/copia-e-cola"><span class="n">12</span><span class="t"><b>nu-mmp://pix/copia-e-cola</b><code>nu-mmp://pix/copia-e-cola</code></span></a>
+  <a class="try good" href="nu-mmp://payments"><span class="n">13</span><span class="t"><b>nu-mmp://payments</b><code>nu-mmp://payments</code></span></a>
+  <a class="try good" href="nu-mmp://transfer"><span class="n">14</span><span class="t"><b>nu-mmp://transfer</b><code>nu-mmp://transfer</code></span></a>
+  <a class="try good" href="nu-mmp://deeplink?screen=pix"><span class="n">15</span><span class="t"><b>deeplink?screen=pix</b><code>nu-mmp://deeplink?screen=pix</code></span></a>
+  <a class="try good" href="nu-mmp://home"><span class="n">16</span><span class="t"><b>nu-mmp://home</b><code>nu-mmp://home</code></span></a>
 
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
