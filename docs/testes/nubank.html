@@ -78,37 +78,49 @@
   <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix"><span class="n">7</span><span class="t"><b>af_dp=nu-mmp://pix (esquema real)</b><code>…/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix</code></span></a>
   <a class="try" href="https://nubank.onelink.me/g4UH/pix?af_dp=nu-mmp%3A%2F%2Fpix&deep_link_value=pix"><span class="n">8</span><span class="t"><b>af_dp + deep_link_value juntos</b><code>…?af_dp=nu-mmp%3A%2F%2Fpix&amp;deep_link_value=pix</code></span></a>
 
-  <h2>nu-mmp é da AppsFlyer, não é o roteador do app</h2>
+  <h2>nuapp.nubank.com.br — o domínio de deeplink do app</h2>
   <p>
-    <strong>MMP = Mobile Measurement Partner</strong>, o nome de mercado pra
-    AppsFlyer/Adjust/Branch. E o mesmo Info.plist traz
-    <code>NSAdvertisingAttributionReportEndpoint:
-    appsflyer-skadnetwork.com</code>. Ou seja: <code>nu-mmp://</code> é o
-    esquema que o Nubank registrou <em>pra AppsFlyer entregar o usuário no
-    app</em> — é o alvo do <code>af_dp</code>, não uma porta de rota interna.
+    Isto saiu das <strong>entitlements do app instalado</strong>, não de
+    documentação de terceiro: <code>associated-domains</code> lista 14 domínios,
+    e <code>nuapp.nubank.com.br</code> reivindica <code>*</code> — todo caminho
+    dele abre o app.
   </p>
   <p>
-    Por isso ele abre e para na tela inicial: a convenção da AppsFlyer não é
-    caminho, é o parâmetro <code>deep_link_value</code>. É esse o equivalente
-    do <code>tela=</code> do Santander aqui.
+    Duas vantagens sobre o OneLink de hoje: é domínio do próprio Nubank (sem
+    relógio de fornecedor de atribuição correndo por baixo) e é
+    <code>https</code>, então o Telegram aceita como botão <em>direto</em>, sem
+    página nossa no meio como no Santander.
   </p>
+  <p>
+    Caminho que o app não reconhecer cai na tela inicial igual. A caça é pelo
+    que cair em outro lugar.
+  </p>
+  <a class="try good" href="https://nuapp.nubank.com.br/"><span class="n">9</span><span class="t"><b>raiz — abre o app? (base de comparação)</b><code>https://nuapp.nubank.com.br/</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix"><span class="n">10</span><span class="t"><b>/pix</b><code>https://nuapp.nubank.com.br/pix</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/copy-paste"><span class="n">11</span><span class="t"><b>/pix/copy-paste</b><code>https://nuapp.nubank.com.br/pix/copy-paste</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/paste"><span class="n">12</span><span class="t"><b>/pix/paste</b><code>https://nuapp.nubank.com.br/pix/paste</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/transfer"><span class="n">13</span><span class="t"><b>/pix/transfer</b><code>https://nuapp.nubank.com.br/pix/transfer</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/pay"><span class="n">14</span><span class="t"><b>/pix/pay</b><code>https://nuapp.nubank.com.br/pix/pay</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/send"><span class="n">15</span><span class="t"><b>/pix/send</b><code>https://nuapp.nubank.com.br/pix/send</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/pix/qr-code"><span class="n">16</span><span class="t"><b>/pix/qr-code</b><code>https://nuapp.nubank.com.br/pix/qr-code</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/transfer"><span class="n">17</span><span class="t"><b>/transfer</b><code>https://nuapp.nubank.com.br/transfer</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/transfers"><span class="n">18</span><span class="t"><b>/transfers</b><code>https://nuapp.nubank.com.br/transfers</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/payment"><span class="n">19</span><span class="t"><b>/payment</b><code>https://nuapp.nubank.com.br/payment</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/payments"><span class="n">20</span><span class="t"><b>/payments</b><code>https://nuapp.nubank.com.br/payments</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/send-money"><span class="n">21</span><span class="t"><b>/send-money</b><code>https://nuapp.nubank.com.br/send-money</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/area-pix"><span class="n">22</span><span class="t"><b>/area-pix</b><code>https://nuapp.nubank.com.br/area-pix</code></span></a>
 
-  <a class="try ref" href="nu-mmp://"><span class="n">9</span><span class="t"><b>só o esquema — abre e fica na home (base)</b><code>nu-mmp://</code></span></a>
-  <a class="try good" href="nu-mmp://?deep_link_value=pix"><span class="n">10</span><span class="t"><b>deep_link_value=pix</b><code>nu-mmp://?deep_link_value=pix</code></span></a>
-  <a class="try good" href="nu-mmp://?deep_link_value=pix_copy_paste"><span class="n">11</span><span class="t"><b>deep_link_value=pix_copy_paste</b><code>nu-mmp://?deep_link_value=pix_copy_paste</code></span></a>
-  <a class="try good" href="nu-mmp://?deep_link_value=pix_transfer"><span class="n">12</span><span class="t"><b>deep_link_value=pix_transfer</b><code>nu-mmp://?deep_link_value=pix_transfer</code></span></a>
-  <a class="try good" href="nu-mmp://?deep_link_value=transfer"><span class="n">13</span><span class="t"><b>deep_link_value=transfer</b><code>nu-mmp://?deep_link_value=transfer</code></span></a>
-  <a class="try good" href="nu-mmp://deeplink?deep_link_value=pix"><span class="n">14</span><span class="t"><b>host deeplink + deep_link_value</b><code>nu-mmp://deeplink?deep_link_value=pix</code></span></a>
-  <a class="try good" href="nu-mmp://?af_dp=pix&deep_link_value=pix"><span class="n">15</span><span class="t"><b>af_dp + deep_link_value</b><code>nu-mmp://?af_dp=pix&amp;deep_link_value=pix</code></span></a>
-
-  <h2>Pelo OneLink de verdade — deixando a AppsFlyer montar</h2>
+  <h2>Esquema nu-mmp — é da AppsFlyer, não do roteador</h2>
   <p>
-    O caminho que a AppsFlyer realmente usa: o OneLink resolve e chama o app
-    com o <code>deep_link_value</code> junto. Se o app entende algum valor,
-    é por aqui que ele chega inteiro.
+    <strong>MMP = Mobile Measurement Partner.</strong> O Info.plist traz
+    <code>NSAdvertisingAttributionReportEndpoint: appsflyer-skadnetwork.com</code>,
+    então <code>nu-mmp://</code> é o alvo de <code>af_dp</code> da AppsFlyer.
+    <em>Aviso honesto:</em> <code>deep_link_value</code> é convenção documentada
+    da AppsFlyer — não achei esse nome em arquivo nenhum do Nubank. Testa só se
+    os de cima falharem.
   </p>
-  <a class="try good" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix"><span class="n">16</span><span class="t"><b>OneLink + deep_link_value=pix</b><code>…/g4UH/pix?deep_link_value=pix</code></span></a>
-  <a class="try good" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix_copy_paste"><span class="n">17</span><span class="t"><b>OneLink + pix_copy_paste</b><code>…/g4UH/pix?deep_link_value=pix_copy_paste</code></span></a>
+  <a class="try" href="nu-mmp://?deep_link_value=pix"><span class="n">23</span><span class="t"><b>deep_link_value=pix</b><code>nu-mmp://?deep_link_value=pix</code></span></a>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix?deep_link_value=pix"><span class="n">24</span><span class="t"><b>OneLink + deep_link_value</b><code>…/g4UH/pix?deep_link_value=pix</code></span></a>
 
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
