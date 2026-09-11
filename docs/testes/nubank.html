@@ -1,86 +1,52 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<meta http-equiv="Cache-Control" content="no-store">
-<title>Teste — Nubank (envelope)</title>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><meta http-equiv="Cache-Control" content="no-store">
+<title>Teste — Nubank Pix (Samsung route)</title>
 <style>
-  :root { color-scheme: light dark;
-    --bg:#fff; --fg:#16181c; --muted:#63676e; --line:#e3e5e8; --card:#f6f7f8;
-    --accent:#820ad1; --ok:#0a7d32; }
-  @media (prefers-color-scheme: dark) { :root {
-    --bg:#16181c; --fg:#f2f3f5; --muted:#9aa0a6; --line:#2b2e33; --card:#1e2126;
-    --ok:#35c46a; } }
+  :root { color-scheme: light dark; --bg:#fff; --fg:#16181c; --muted:#63676e;
+    --line:#e3e5e8; --card:#f6f7f8; --accent:#820ad1; --ok:#0a7d32; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16181c; --fg:#f2f3f5;
+    --muted:#9aa0a6; --line:#2b2e33; --card:#1e2126; --ok:#35c46a; } }
   * { box-sizing:border-box; }
   body { margin:0; padding:28px 18px 72px; background:var(--bg); color:var(--fg);
     font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
   main { max-width:32rem; margin:0 auto; }
   h1 { font-size:1.25rem; margin:0 0 .4rem; }
-  h2 { font-size:.75rem; text-transform:uppercase; letter-spacing:.07em;
-    color:var(--muted); margin:1.75rem 0 .4rem; }
   p { color:var(--muted); margin:0 0 .75rem; font-size:.9375rem; }
-  small { font-weight:400; color:var(--muted); }
-  a.try { display:flex; gap:.75rem; align-items:baseline; padding:.8rem .9rem;
-    margin:.4rem 0; background:var(--card); border:1px solid var(--line);
-    border-radius:.625rem; color:var(--fg); text-decoration:none; }
-  a.try .n { font-variant-numeric:tabular-nums; font-weight:700;
-    color:var(--accent); min-width:1.75rem; }
+  a.try { display:flex; gap:.75rem; align-items:baseline; padding:.85rem .9rem;
+    margin:.5rem 0; background:var(--card); border:1px solid var(--line);
+    border-radius:.625rem; color:var(--fg); text-decoration:none;
+    border-left:3px solid var(--ok); }
+  a.try .n { font-weight:700; color:var(--accent); min-width:1.5rem; }
   a.try .t { flex:1; min-width:0; }
   a.try b { display:block; font-size:.9375rem; font-weight:600; }
-  a.try code { display:block; font-size:.75rem; color:var(--muted);
+  a.try code { display:block; font-size:.72rem; color:var(--muted);
     word-break:break-all; margin-top:.15rem; }
-  .good { border-left:3px solid var(--accent); }
-  .ref { border-left:3px solid var(--ok); }
   .note { border-top:1px solid var(--line); padding-top:1rem; margin-top:2rem;
     font-size:.8125rem; color:var(--muted); }
-</style>
-</head>
-<body>
-<main>
-  <h1>Teste — Nubank, envelope base64</h1>
+</style></head>
+<body><main>
+  <h1>Teste — rota Samsung Pix do Nubank</h1>
   <p>
-    <code>nuapp://</code> direto não faz nada no iPhone: o esquema não está no
-    <code>CFBundleURLTypes</code> do app. O que funciona é o envelope que você
-    achou — <code>nuapp.nubank.com.br/</code> + base64 da URL interna. Só isso
-    aqui, nenhum toque desperdiçado.
+    Um teardown público de APK
+    (<code>dbx0/skills/…/apk-reverse</code>) documentou a rota da integração
+    Samsung tap-to-pay do Nubank. Ela carrega o copia-e-cola em
+    <code>?qrcode=</code> — o formato <code>bdc/&lt;codinome&gt;/expr/&lt;ação&gt;</code>
+    é o mesmo do link que você achou.
   </p>
   <p>
-    O <code>code</code> embaixo de cada botão mostra a rota interna que vai
-    dentro do envelope.
+    <strong>1</strong> abre a rota sem dados. <strong>2</strong> leva um BR Code
+    de verdade (chave de teste, R$1) — se prefiller o pagamento, achamos o
+    ouro. <strong>3</strong> é o caminho alternativo. <strong>4</strong> é o
+    controle que já sabemos abrir.
   </p>
-  <h2>Controle — rotas reais</h2>
-  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvZHItY2hhcGF0aW4vZXhwci9kZXNlbnJvbGEtcmVkaXJlY3Q="><span class="n">1</span><span class="t"><b>bdc/dr-chapatin/expr/desenrola-redirect <small>(o que VOCÊ achou — abre)</small></b><code>nuapp://bdc/dr-chapatin/expr/desenrola-redirect</code></span></a>
-  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXktZGV0YWlscy94eHh4"><span class="n">2</span><span class="t"><b>pix/dict/key-details/xxxx <small>(namespace pix, rota real (id inventado))</small></b><code>nuapp://pix/dict/key-details/xxxx</code></span></a>
-  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0"><span class="n">3</span><span class="t"><b>chat <small>(rota real)</small></b><code>nuapp://chat</code></span></a>
-
-  <h2>Candidatos de Pix</h2>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXg="><span class="n">4</span><span class="t"><b>nuapp://pix</b><code>nuapp://pix</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvaG9tZQ=="><span class="n">5</span><span class="t"><b>nuapp://pix/home</b><code>nuapp://pix/home</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvYXJlYQ=="><span class="n">6</span><span class="t"><b>nuapp://pix/area</b><code>nuapp://pix/area</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvdHJhbnNmZXI="><span class="n">7</span><span class="t"><b>nuapp://pix/transfer</b><code>nuapp://pix/transfer</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGF5"><span class="n">8</span><span class="t"><b>nuapp://pix/pay</b><code>nuapp://pix/pay</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGF5bWVudA=="><span class="n">9</span><span class="t"><b>nuapp://pix/payment</b><code>nuapp://pix/payment</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvc2VuZA=="><span class="n">10</span><span class="t"><b>nuapp://pix/send</b><code>nuapp://pix/send</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29weS1wYXN0ZQ=="><span class="n">11</span><span class="t"><b>nuapp://pix/copy-paste</b><code>nuapp://pix/copy-paste</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29waWEtZS1jb2xh"><span class="n">12</span><span class="t"><b>nuapp://pix/copia-e-cola</b><code>nuapp://pix/copia-e-cola</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGFzdGU="><span class="n">13</span><span class="t"><b>nuapp://pix/paste</b><code>nuapp://pix/paste</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcXItY29kZQ=="><span class="n">14</span><span class="t"><b>nuapp://pix/qr-code</b><code>nuapp://pix/qr-code</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdA=="><span class="n">15</span><span class="t"><b>nuapp://pix/dict</b><code>nuapp://pix/dict</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXlz"><span class="n">16</span><span class="t"><b>nuapp://pix/dict/keys</b><code>nuapp://pix/dict/keys</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvbmV3LXRyYW5zZmVy"><span class="n">17</span><span class="t"><b>nuapp://pix/new-transfer</b><code>nuapp://pix/new-transfer</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvdHJhbnNmZXIvbmV3"><span class="n">18</span><span class="t"><b>nuapp://pix/transfer/new</b><code>nuapp://pix/transfer/new</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9mbHV0dGVyL3BpeA=="><span class="n">19</span><span class="t"><b>nuapp://flutter/pix</b><code>nuapp://flutter/pix</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9mbHV0dGVyL3BpeC90cmFuc2Zlcg=="><span class="n">20</span><span class="t"><b>nuapp://flutter/pix/transfer</b><code>nuapp://flutter/pix/transfer</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2Zlcg=="><span class="n">21</span><span class="t"><b>nuapp://transfer</b><code>nuapp://transfer</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9wYXltZW50"><span class="n">22</span><span class="t"><b>nuapp://payment</b><code>nuapp://payment</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2Zlci9waXg="><span class="n">23</span><span class="t"><b>nuapp://transfer/pix</b><code>nuapp://transfer/pix</code></span></a>
-
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZQ=="><span class="n">1</span><span class="t"><b>rota Samsung Pix — sem params (abre?)</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZT9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhCJmluaXRpYXRpb24tdHlwZT1zYW1zdW5nLWNhbWVyYSZpbml0aWFsLXJvdXRlPXBhcnNl"><span class="n">2</span><span class="t"><b>rota Samsung Pix COM código real — prefill?</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode?qrcode=00020126330014BR.GOV.BCB…</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zYW1zdW5nLXBpeD9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhC"><span class="n">3</span><span class="t"><b>caminho alternativo samsung-pix</b><code>nuapp://samsung-pix?qrcode=00020126330014BR.GOV.BCB.PIX01111114447773552040…</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0"><span class="n">4</span><span class="t"><b>controle — sabemos que abre</b><code>nuapp://chat</code></span></a>
   <p class="note">
-    Página de teste, não faz parte do bot. Rota que o app não conhece deve cair
-    na tela inicial — a caça é pela que cair em outro lugar.
+    Teste, fora do bot. O item 2 monta uma tela de pagamento de R$1 pra uma
+    chave de teste — <strong>não confirme</strong>, é só pra ver se prefila.
   </p>
-</main>
-</body>
-</html>
+</main></body></html>
