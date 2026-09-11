@@ -19,14 +19,21 @@ from dataclasses import dataclass
 class Button:
     """A keyboard button, framework-free so this package stays testable.
 
-    Exactly one of `url` / `copy` is set: `copy` becomes Telegram's
-    CopyTextButton, which puts the payload on the clipboard without ever
-    posting it as a message.
+    Exactly one of `url` / `copy` is set — that is Telegram's own rule, not a
+    simplification: "exactly one of the fields other than text,
+    icon_custom_emoji_id and style must be used to specify the type of the
+    button". So no button can both copy the code and open a bank; the trip is
+    two taps and the most we can do is make the first one obvious.
+
+    `copy` becomes Telegram's CopyTextButton, which puts the payload on the
+    clipboard without ever posting it as a message. `style` is Bot API 10.0's
+    button colour — `success` paints it green.
     """
 
     label: str
     url: str | None = None
     copy: str | None = None
+    style: str | None = None
 
 
 # Itaú's own domain, from its apple-app-site-association: the Personnalité app
@@ -68,9 +75,14 @@ def buttons(code: str) -> list[list[Button]]:
     banks only save hunting for an icon.
     """
     return [
-        [Button("📋 Copiar código Pix", copy=code)],
+        # Green, alone, and in caps. A bank button cannot carry the code with
+        # it, so the copy has to be the thing the thumb goes to first — and
+        # the colour is not the only signal, because an older client that
+        # ignores `style` still sees one wide shouting button over four narrow
+        # quiet ones.
+        [Button("📋 COPIAR O CÓDIGO PIX", copy=code, style="success")],
         [Button("🟠 Itaú", url=ITAU_PIX),
-         Button("🟣 Nubank", url=NUBANK_APP)],
-        [Button("🟧 Inter", url=INTER_PIX),
+         Button("🟣 Nubank", url=NUBANK_APP),
+         Button("🟧 Inter", url=INTER_PIX),
          Button("🔴 Bradesco", url=BRADESCO_PIX)],
     ]

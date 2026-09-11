@@ -50,9 +50,12 @@ def _markup(rows: list[list[Button]]) -> InlineKeyboardMarkup:
     """
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text=b.label, url=b.url) if b.url
+            InlineKeyboardButton(text=b.label, url=b.url, style=b.style)
+            if b.url
             else InlineKeyboardButton(
-                text=b.label, copy_text=types.CopyTextButton(text=b.copy or "")
+                text=b.label,
+                copy_text=types.CopyTextButton(text=b.copy or ""),
+                style=b.style,
             )
             for b in row
         ]

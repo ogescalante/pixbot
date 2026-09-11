@@ -73,6 +73,7 @@ def test_a_phone_reading_is_visible_in_the_reply():
     assert "⚠️" not in text     # unambiguous: no warning to read past
     assert "Confere o nome" in text
     assert rows[0][0].copy.startswith("000201")
+    assert rows[0][0].style == "success"     # the tap that matters, in green
 
 
 def test_an_open_amount_says_so():
@@ -89,7 +90,7 @@ def test_an_unrecognised_key_is_quoted_back():
 
 def test_the_buttons_are_copy_first_then_the_banks():
     _, rows = render("/pix 11144477735 10")
-    assert [b.label for b in rows[0]] == ["📋 Copiar código Pix"]
+    assert [b.label for b in rows[0]] == ["📋 COPIAR O CÓDIGO PIX"]
     assert all(b.url for row in rows[1:] for b in row)
 
 
