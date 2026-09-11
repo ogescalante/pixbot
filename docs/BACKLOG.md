@@ -93,6 +93,41 @@ manifest is unreadable from a laptop too, but someone tapped the link on a
 phone on 2026-08-07 and watched it land on the Pix screen. The WAF never
 mattered; the device check is what produced a working button.
 
+### Nubank: what is settled and what is not (2026-09-11)
+
+**Settled, by evidence:**
+
+- Scheme is `nu-mmp://` — from `CFBundleURLTypes` of `com.nu.iphone`. The
+  guesses `nubank://`, `nuapp://`, `nu://`, `nuconta://` do not exist.
+- The app is Flutter (`CFBundleExecutable: Runner`, `DART_DEFINES`).
+- `deep_link_value` is the right parameter. Proven on device: bare `nu-mmp://`
+  opens with **no** Face ID, while `nu-mmp://?deep_link_value=<anything>`
+  **always** prompts for Face ID — including a deliberately invalid value. The
+  app parses the parameter, authenticates, fails to resolve the value, falls
+  back to home.
+- Therefore **Face ID is not a per-value signal.** It confirms the parameter,
+  not the vocabulary. The only scoreboard is the screen you land on.
+- `nuapp.nubank.com.br` claims `*` in `associated-domains` — every path opens
+  the app. Rejected for this bot anyway: universal links hand off to the app
+  and fall back to the web, which is the behaviour we are trying to avoid.
+
+**Not settled:** the accepted `deep_link_value` vocabulary. It is not on the
+web — all three OneLink templates (`g4UH`, `jTeG`, `gHLl`) 301 to the App Store
+for any non-device client, so nothing leaks from there. The values live as
+strings in the Dart snapshot inside `App.framework`.
+
+**The one remaining move:** get the bundle and read it.
+`strings App.framework/App | grep -i pix` prints a Flutter route table outright.
+Two ways, both on your own machine and through Apple:
+
+1. Mac App Store → *iPhone & iPad Apps* on an Apple Silicon Mac, if Nubank
+   permits Mac installation. The bundle lands in `/Applications` and is readable
+   directly. One search to find out.
+2. Apple Configurator → download the `.ipa` → unzip → same grep.
+
+Until then, tapping candidate values is a flat search of an unknown vocabulary
+where every miss looks identical. Not worth more taps.
+
 ### Reading a scheme off an installed app — no jailbreak, no APK download
 
 The device's install daemon answers over USB, and this is where `santanderpf`,
