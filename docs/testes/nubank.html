@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Teste — abrir o Nubank</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16181c; --muted: #63676e; --line: #e3e5e8;
+    --card: #f6f7f8; --accent: #820ad1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33;
+            --card: #1e2126; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 20px 64px; background: var(--bg); color: var(--fg);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 32rem; margin: 0 auto; }
+  h1 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  h2 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .06em;
+       color: var(--muted); margin: 2rem 0 .5rem; }
+  p { color: var(--muted); margin: 0 0 1rem; }
+  a.try {
+    display: block; padding: .875rem 1rem; margin: .5rem 0;
+    background: var(--card); border: 1px solid var(--line); border-radius: .625rem;
+    color: var(--fg); text-decoration: none;
+  }
+  a.try b { display: block; font-size: .9375rem; }
+  a.try code { display: block; font-size: .75rem; color: var(--muted);
+               word-break: break-all; margin-top: .2rem; }
+  .good { border-left: 3px solid var(--accent); }
+  .note { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem;
+          font-size: .8125rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Teste — abrir o Nubank</h1>
+  <p>
+    Toca um de cada vez e anota o que acontece: abriu o app? em que tela?
+    abriu o navegador? não fez nada?
+  </p>
+
+  <h2>Com evidência — caminhos que o app declara</h2>
+  <p>
+    Estes três estão no manifesto do próprio Nubank, então o app
+    <em>tem</em> que abrir. A dúvida é só em que tela.
+  </p>
+
+  <a class="try good" href="https://nubank.com.br/payment/">
+    <b>1. Caminho /payment/ (declarado no manifesto)</b>
+    <code>https://nubank.com.br/payment/</code>
+  </a>
+  <a class="try good" href="https://nubank.onelink.me/jTeG/">
+    <b>2. OneLink jTeG — outra campanha do mesmo app</b>
+    <code>https://nubank.onelink.me/jTeG/</code>
+  </a>
+  <a class="try good" href="https://nubank.onelink.me/gHLl/">
+    <b>3. OneLink gHLl — outra campanha do mesmo app</b>
+    <code>https://nubank.onelink.me/gHLl/</code>
+  </a>
+
+  <h2>Referência — o que o bot usa hoje</h2>
+  <a class="try" href="https://nubank.onelink.me/g4UH/pix">
+    <b>4. O botão atual (abre na tela inicial)</b>
+    <code>https://nubank.onelink.me/g4UH/pix</code>
+  </a>
+
+  <h2>Chutes — esquemas próprios, sem evidência</h2>
+  <p>
+    Nenhum destes está documentado em lugar nenhum. Se um abrir o app, a gente
+    monta a página igual à do Santander.
+  </p>
+
+  <a class="try" href="nubank://"><b>5.</b><code>nubank://</code></a>
+  <a class="try" href="nubank://pix"><b>6.</b><code>nubank://pix</code></a>
+  <a class="try" href="nubank://payment"><b>7.</b><code>nubank://payment</code></a>
+  <a class="try" href="nuapp://"><b>8.</b><code>nuapp://</code></a>
+  <a class="try" href="nu://"><b>9.</b><code>nu://</code></a>
+
+  <p class="note">
+    Página de teste, não faz parte do bot. Nenhum dado de pagamento passa por
+    aqui — são links e nada mais. Some quando o teste terminar.
+  </p>
+</main>
+</body>
+</html>
