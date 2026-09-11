@@ -2,47 +2,81 @@
 <html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex"><meta http-equiv="Cache-Control" content="no-store">
-<title>Teste — Nubank bdc/moises</title>
+<title>Teste — Nubank, todas as rotas</title>
 <style>
   :root { color-scheme: light dark; --bg:#fff; --fg:#16181c; --muted:#63676e;
     --line:#e3e5e8; --card:#f6f7f8; --accent:#820ad1; --ok:#0a7d32; }
   @media (prefers-color-scheme: dark) { :root { --bg:#16181c; --fg:#f2f3f5;
     --muted:#9aa0a6; --line:#2b2e33; --card:#1e2126; --ok:#35c46a; } }
   * { box-sizing:border-box; }
-  body { margin:0; padding:28px 18px 72px; background:var(--bg); color:var(--fg);
+  body { margin:0; padding:26px 16px 72px; background:var(--bg); color:var(--fg);
     font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
   main { max-width:32rem; margin:0 auto; } h1 { font-size:1.2rem; margin:0 0 .4rem; }
-  p { color:var(--muted); margin:0 0 .75rem; font-size:.9375rem; }
-  a.try { display:flex; gap:.7rem; align-items:baseline; padding:.8rem .9rem;
-    margin:.45rem 0; background:var(--card); border:1px solid var(--line);
-    border-radius:.6rem; color:var(--fg); text-decoration:none; border-left:3px solid var(--accent); }
-  a.try.ref { border-left-color:var(--ok); }
-  a.try .n { font-weight:700; color:var(--accent); min-width:1.5rem; }
-  a.try .t { flex:1; min-width:0; } a.try b { display:block; font-size:.92rem; font-weight:600; }
-  a.try code { display:block; font-size:.7rem; color:var(--muted); word-break:break-all; margin-top:.15rem; }
+  h2 { font-size:.75rem; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--muted); margin:1.6rem 0 .3rem; }
+  p { color:var(--muted); margin:0 0 .7rem; font-size:.9rem; }
+  a.try { display:flex; gap:.7rem; align-items:baseline; padding:.75rem .85rem;
+    margin:.4rem 0; background:var(--card); border:1px solid var(--line);
+    border-radius:.6rem; color:var(--fg); text-decoration:none;
+    border-left:3px solid var(--line); }
+  a.try.star { border-left-color:var(--accent); }
+  a.try .n { font-weight:700; color:var(--accent); min-width:1.6rem;
+    font-variant-numeric:tabular-nums; }
+  a.try .t { flex:1; min-width:0; } a.try b { display:block; font-size:.9rem; font-weight:600; }
+  a.try code { display:block; font-size:.7rem; color:var(--muted); word-break:break-all; margin-top:.12rem; }
   .note { border-top:1px solid var(--line); padding-top:1rem; margin-top:2rem; font-size:.8rem; color:var(--muted); }
 </style></head><body><main>
-  <h1>Teste — bdc/moises (namespace de pagamentos)</h1>
+  <h1>Teste — todas as rotas nuapp:// do Nubank</h1>
   <p>
-    <code>moises</code> é o codinome de pagamentos que o teardown do APK expôs.
-    Codinome não se adivinha, mas a <strong>ação</strong> depois de
-    <code>/expr/</code> segue gramática visível
-    (<code>transfer-out.qrcode</code>). Aqui vario a ação, com um BR Code real
-    (chave teste, R$1) em <code>?qrcode=</code>.
+    Tiradas do <code>libapp.so</code> do APK. Cada botão é o envelope
+    <code>nuapp.nubank.com.br/&lt;base64&gt;</code> — a única forma que o iPhone
+    aceita. O <code>code</code> embaixo mostra a rota interna.
   </p>
-  <p><strong>Não confirme nada.</strong> É só pra ver o que abre e se prefila.</p>
-  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZT9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhCJmluaXRpYXRpb24tdHlwZT1zYW1zdW5nLWNhbWVyYSZpbml0aWFsLXJvdXRlPXBhcnNl"><span class="n">1</span><span class="t"><b>moises transfer-out.qrcode + código (o do teardown)</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode?qrcode=00020126330014BR.G…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0P3FyY29kZT0wMDAyMDEyNjMzMDAxNEJSLkdPVi5CQ0IuUElYMDExMTExMTQ0NDc3NzM1NTIwNDAwMDA1MzAzOTg2NTQwNDEuMDA1ODAyQlI1OTEzTkFPJTIwSU5GT1JNQURPNjAwNkJSQVNJTDYyMDcwNTAzJTJBJTJBJTJBNjMwNEM2OEI="><span class="n">2</span><span class="t"><b>moises transfer-out + código</b><code>nuapp://bdc/moises/expr/transfer-out?qrcode=00020126330014BR.GOV.BCB.…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvcGl4LW91dC5xcmNvZGU/cXJjb2RlPTAwMDIwMTI2MzMwMDE0QlIuR09WLkJDQi5QSVgwMTExMTExNDQ0Nzc3MzU1MjA0MDAwMDUzMDM5ODY1NDA0MS4wMDU4MDJCUjU5MTNOQU8lMjBJTkZPUk1BRE82MDA2QlJBU0lMNjIwNzA1MDMlMkElMkElMkE2MzA0QzY4QiZpbml0aWF0aW9uLXR5cGU9c2Ftc3VuZy1jYW1lcmEmaW5pdGlhbC1yb3V0ZT1wYXJzZQ=="><span class="n">3</span><span class="t"><b>moises pix-out.qrcode</b><code>nuapp://bdc/moises/expr/pix-out.qrcode?qrcode=00020126330014BR.GOV.BC…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvcGl4LWNvcHktcGFzdGU/cXJjb2RlPTAwMDIwMTI2MzMwMDE0QlIuR09WLkJDQi5QSVgwMTExMTExNDQ0Nzc3MzU1MjA0MDAwMDUzMDM5ODY1NDA0MS4wMDU4MDJCUjU5MTNOQU8lMjBJTkZPUk1BRE82MDA2QlJBU0lMNjIwNzA1MDMlMkElMkElMkE2MzA0QzY4Qg=="><span class="n">4</span><span class="t"><b>moises pix-copy-paste</b><code>nuapp://bdc/moises/expr/pix-copy-paste?qrcode=00020126330014BR.GOV.BC…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvcGl4LW91dD9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhC"><span class="n">5</span><span class="t"><b>moises pix-out</b><code>nuapp://bdc/moises/expr/pix-out?qrcode=00020126330014BR.GOV.BCB.PIX01…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnBpeD9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhC"><span class="n">6</span><span class="t"><b>moises transfer-out.pix</b><code>nuapp://bdc/moises/expr/transfer-out.pix?qrcode=00020126330014BR.GOV.…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvcGl4"><span class="n">7</span><span class="t"><b>moises pix (sem params)</b><code>nuapp://bdc/moises/expr/pix</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZQ=="><span class="n">8</span><span class="t"><b>moises transfer-out.qrcode SEM params (só abre?)</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGF5bWVudC9jb3B5LXBhc3RlP3FyY29kZT0wMDAyMDEyNjMzMDAxNEJSLkdPVi5CQ0IuUElYMDExMTExMTQ0NDc3NzM1NTIwNDAwMDA1MzAzOTg2NTQwNDEuMDA1ODAyQlI1OTEzTkFPJTIwSU5GT1JNQURPNjAwNkJSQVNJTDYyMDcwNTAzJTJBJTJBJTJBNjMwNEM2OEI="><span class="n">9</span><span class="t"><b>pix/payment/copy-paste</b><code>nuapp://pix/payment/copy-paste?qrcode=00020126330014BR.GOV.BCB.PIX011…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvdHJhbnNmZXItb3V0P3FyY29kZT0wMDAyMDEyNjMzMDAxNEJSLkdPVi5CQ0IuUElYMDExMTExMTQ0NDc3NzM1NTIwNDAwMDA1MzAzOTg2NTQwNDEuMDA1ODAyQlI1OTEzTkFPJTIwSU5GT1JNQURPNjAwNkJSQVNJTDYyMDcwNTAzJTJBJTJBJTJBNjMwNEM2OEI="><span class="n">10</span><span class="t"><b>pix/transfer-out</b><code>nuapp://pix/transfer-out?qrcode=00020126330014BR.GOV.BCB.PIX011111144…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29weS1wYXN0ZT9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhC"><span class="n">11</span><span class="t"><b>pix/copy-paste + código</b><code>nuapp://pix/copy-paste?qrcode=00020126330014BR.GOV.BCB.PIX01111114447…</code></span></a>
-  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXlz"><span class="n">12</span><span class="t"><b>pix/dict/keys (lista de chaves)</b><code>nuapp://pix/dict/keys</code></span></a>
-  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0"><span class="n">13</span><span class="t"><b>controle — abre</b><code>nuapp://chat</code></span></a>
-  <p class="note">Teste, fora do bot. Item verde = referência conhecida.</p>
+  <p>
+    Roxo (★) = Pix e pagamentos, o que interessa. Os dois primeiros levam um
+    BR Code real (chave teste, R$1) — <strong>não confirme</strong>, é só pra
+    ver se prefila. Rota que o app não abrir cai na home.
+  </p>
+  <h2>★ Pix / pagamentos — os que mais interessam</h2>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZT9xcmNvZGU9MDAwMjAxMjYzMzAwMTRCUi5HT1YuQkNCLlBJWDAxMTExMTE0NDQ3NzczNTUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwNTgwMkJSNTkxM05BTyUyMElORk9STUFETzYwMDZCUkFTSUw2MjA3MDUwMyUyQSUyQSUyQTYzMDRDNjhCJmluaXRpYXRpb24tdHlwZT1zYW1zdW5nLWNhbWVyYSZpbml0aWFsLXJvdXRlPXBhcnNl"><span class="n">1</span><span class="t"><b>transfer-out.qrcode + código (prefill?)</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode?qrcode=00020126330014…</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvbW9pc2VzL2V4cHIvdHJhbnNmZXItb3V0LnFyY29kZQ=="><span class="n">2</span><span class="t"><b>transfer-out.qrcode SEM params</b><code>nuapp://bdc/moises/expr/transfer-out.qrcode</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvdHJhYmFsaGEvZXhwci9xcmNvZGU/cXJjb2RlPTAwMDIwMTI2MzMwMDE0QlIuR09WLkJDQi5QSVgwMTExMTExNDQ0Nzc3MzU1MjA0MDAwMDUzMDM5ODY1NDA0MS4wMDU4MDJCUjU5MTNOQU8lMjBJTkZPUk1BRE82MDA2QlJBU0lMNjIwNzA1MDMlMkElMkElMkE2MzA0QzY4Qg=="><span class="n">3</span><span class="t"><b>trabalha/qrcode + código</b><code>nuapp://bdc/trabalha/expr/qrcode?qrcode=00020126330014BR.GOV.BCB.…</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvdHJhYmFsaGEvZXhwci9xcmNvZGU="><span class="n">4</span><span class="t"><b>trabalha/qrcode SEM params</b><code>nuapp://bdc/trabalha/expr/qrcode</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvamFrZS9leHByL2JpbGwtcGF5bWVudA=="><span class="n">5</span><span class="t"><b>jake/bill-payment</b><code>nuapp://bdc/jake/expr/bill-payment</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvYmRjLWNvLXBheW1lbnRzL2V4cHIvcGF5bWVudC1mbG93"><span class="n">6</span><span class="t"><b>bdc-co-payments/payment-flow</b><code>nuapp://bdc/bdc-co-payments/expr/payment-flow</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jcmVkaXQtY2FyZC9iaWxsLXBheW1lbnQ="><span class="n">7</span><span class="t"><b>credit-card/bill-payment</b><code>nuapp://credit-card/bill-payment</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jcmVkaXQtY2FyZC9iaWxsLXBheW1lbnQ/c3RhdGU9b3BlbiZvcmlnaW49dHJhbnNhY3Rpb25fYW50aWNpcGF0aW9u"><span class="n">8</span><span class="t"><b>credit-card/bill-payment (open)</b><code>nuapp://credit-card/bill-payment?state=open&origin=transaction_an…</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9wYXltZW50cy9yZWNlaXB0cy9iYWNr"><span class="n">9</span><span class="t"><b>payments/receipts/back</b><code>nuapp://payments/receipts/back</code></span></a>
+  <a class="try star" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9wYXltZW50cy9yZWNlaXB0cy9yZXRyeQ=="><span class="n">10</span><span class="t"><b>payments/receipts/retry</b><code>nuapp://payments/receipts/retry</code></span></a>
+  <h2>Navegação / telas principais</h2>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zaGVsbC1tb2JpbGU="><span class="n">11</span><span class="t"><b>shell-mobile</b><code>nuapp://shell-mobile</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zaGVsbC1tb2JpbGUvc2NyZWVuL2Rhc2hib2FyZA=="><span class="n">12</span><span class="t"><b>dashboard</b><code>nuapp://shell-mobile/screen/dashboard</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9hcHAvc3lzdGVt"><span class="n">13</span><span class="t"><b>app/system</b><code>nuapp://app/system</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0"><span class="n">14</span><span class="t"><b>chat (controle — sabemos que abre)</b><code>nuapp://chat</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9udWhlbHA="><span class="n">15</span><span class="t"><b>nuhelp</b><code>nuapp://nuhelp</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zdXJ2ZXkv"><span class="n">16</span><span class="t"><b>survey/</b><code>nuapp://survey/</code></span></a>
+  <h2>Cartão / crédito / investimentos</h2>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jcmVkaXQtY2FyZC9saW1pdC9hZGp1c3Q="><span class="n">17</span><span class="t"><b>credit-card/limit/adjust</b><code>nuapp://credit-card/limit/adjust</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jYXJkLWNyb3NzLXNlbGwvbWFya2V0aW5nLXNjcmVlbg=="><span class="n">18</span><span class="t"><b>card-cross-sell</b><code>nuapp://card-cross-sell/marketing-screen</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zZWN1cmVkLWxpbmVzL25ldw=="><span class="n">19</span><span class="t"><b>secured-lines/new</b><code>nuapp://secured-lines/new</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9sZW5kaW5nL3JlbmVnb3RpYXRpb24vY29zdERldGFpbHM/cmVuZWdvdGlhdGlvbklkPQ=="><span class="n">20</span><span class="t"><b>lending/renegotiation</b><code>nuapp://lending/renegotiation/costDetails?renegotiationId=</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvZHItY2hhcGF0aW4vZXhwci9sZW5kaW5nLWNyZWF0ZQ=="><span class="n">21</span><span class="t"><b>dr-chapatin/lending-create</b><code>nuapp://bdc/dr-chapatin/expr/lending-create</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvZmlubi9leHByL2VsaWdpYmxlLXRyYW5zYWN0aW9ucw=="><span class="n">22</span><span class="t"><b>finn/eligible-transactions</b><code>nuapp://bdc/finn/expr/eligible-transactions</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9pbnZlc3RtZW50cy9udWJhbmstdGVybXMtc2NyZWVu"><span class="n">23</span><span class="t"><b>investments/terms</b><code>nuapp://investments/nubank-terms-screen</code></span></a>
+  <h2>Open banking (bdc/*/expr)</h2>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvYnJvb2tseW4tYnJpZGdlL2V4cHIvb3BmLXByb3ZpZGVyLWF1dGhvcml6ZQ=="><span class="n">24</span><span class="t"><b>brooklyn-bridge/opf-provider-authorize</b><code>nuapp://bdc/brooklyn-bridge/expr/opf-provider-authorize</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvYnJvb2tseW4tYnJpZGdlL2V4cHIvb3BmLWF1dG9tYXRpYy1wYXltZW50LWF1dGhvcml6YXRpb24="><span class="n">25</span><span class="t"><b>brooklyn-bridge/opf-automatic-payment</b><code>nuapp://bdc/brooklyn-bridge/expr/opf-automatic-payment-authorizat…</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvcG9udGUtZGUtbWFyYWJhL2V4cHIvb3BmLnByb3ZpZGVyLmF1dGhvcml6YXRpb24="><span class="n">26</span><span class="t"><b>ponte-de-maraba/opf.provider</b><code>nuapp://bdc/ponte-de-maraba/expr/opf.provider.authorization</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9iZGMvcG9udGUtcmlvLW5lZ3JvL2V4cHIvY29uc3VtZXIuY3JlYXRlP3Nob3ctaW50cm89dHJ1ZSZvcmlnaW49Y2MtbGltaXQtYWRqdXN0bWVudA=="><span class="n">27</span><span class="t"><b>ponte-rio-negro/consumer.create</b><code>nuapp://bdc/ponte-rio-negro/expr/consumer.create?show-intro=true&…</code></span></a>
+  <h2>Conta / sessão / segurança</h2>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waW4vY2hhbGxlbmdl"><span class="n">28</span><span class="t"><b>pin/challenge</b><code>nuapp://pin/challenge</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9hcHBfbG9jay9yZXNldF9wYXNzd29yZA=="><span class="n">29</span><span class="t"><b>app_lock/reset_password</b><code>nuapp://app_lock/reset_password</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9zZXNzaW9ucy9zd2l0Y2g="><span class="n">30</span><span class="t"><b>sessions/switch</b><code>nuapp://sessions/switch</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly91c2VyLw=="><span class="n">31</span><span class="t"><b>user/</b><code>nuapp://user/</code></span></a>
+  <a class="try" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9hdXRoL2NlcnRpZmljYXRlLWhlYWx0aGNoZWNr"><span class="n">32</span><span class="t"><b>auth/certificate-healthcheck</b><code>nuapp://auth/certificate-healthcheck</code></span></a>
+  <p class="note">
+    Teste, fora do bot. Prefill do Pix é gated por feature flag remoto do
+    Nubank (Samsung), então talvez nenhum prefile — mas alguns podem abrir a
+    tela certa em branco, e isso já vale.
+  </p>
 </main></body></html>
