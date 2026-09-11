@@ -187,6 +187,60 @@
   <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e://pix/copy-paste"><span class="n">77</span><span class="t"><b>host pix + /copy-paste</b><code>haa5d71fcb167ad735460d9053234afd9e://pix/copy-paste</code></span></a>
   <a class="try good" href="haa5d71fcb167ad735460d9053234afd9e://home"><span class="n">78</span><span class="t"><b>host home (controle: muda algo?)</b><code>haa5d71fcb167ad735460d9053234afd9e://home</code></span></a>
 
+  <h2>nuapp:// — a gramática de rota do app</h2>
+  <p>
+    O link que você achou era um envelope: <code>nuapp.nubank.com.br/</code> +
+    base64 de uma URL interna.
+    <code>bnVhcHA6Ly9iZGMv…</code> decodifica pra
+    <code>nuapp://bdc/dr-chapatin/expr/desenrola-redirect</code>.
+  </p>
+  <p>
+    Com isso achei rotas reais em código público:
+    <code>nuapp://pix/dict/key-details/&lt;id&gt;</code>,
+    <code>nuapp://transaction/&lt;uuid&gt;</code>, <code>nuapp://chat</code>,
+    <code>nuapp://bill/&lt;id&gt;</code>,
+    <code>nuapp://flutter/savings/buckets/daily-liquidity</code>.
+    <strong>Existe um namespace pix.</strong> Não é mais chute de vocabulário —
+    é chute dentro de uma gramática conhecida.
+  </p>
+  <p>
+    Cada candidato vai em duas formas: o esquema direto, e o envelope base64 no
+    domínio. <code>nuapp</code> não está no CFBundleURLTypes do iOS, então o
+    esquema direto pode não pegar — o envelope é o plano B.
+  </p>
+  <a class="try ref" href="nuapp://pix/dict/key-details/xxxx"><span class="n">79</span><span class="t"><b>pix/dict/key-details/xxxx — REAL — achado em código público</b><code>nuapp://pix/dict/key-details/xxxx</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXktZGV0YWlscy94eHh4"><span class="n">80</span><span class="t"><b>pix/dict/key-details/xxxx — envelope base64</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXktZGV0YWlscy94eHh4</code></span></a>
+  <a class="try ref" href="nuapp://chat"><span class="n">81</span><span class="t"><b>chat — REAL — achado em código público</b><code>nuapp://chat</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0"><span class="n">82</span><span class="t"><b>chat — envelope base64</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9jaGF0</code></span></a>
+  <a class="try ref" href="nuapp://transaction/"><span class="n">83</span><span class="t"><b>transaction/ — REAL — achado em código público</b><code>nuapp://transaction/</code></span></a>
+  <a class="try ref" href="https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2FjdGlvbi8="><span class="n">84</span><span class="t"><b>transaction/ — envelope base64</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2FjdGlvbi8=</code></span></a>
+
+  <h2>Candidatos de Pix na mesma gramática</h2>
+  <a class="try good" href="nuapp://pix"><span class="n">85</span><span class="t"><b>nuapp://pix</b><code>nuapp://pix</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXg="><span class="n">86</span><span class="t"><b>pix — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXg=</code></span></a>
+  <a class="try good" href="nuapp://pix/home"><span class="n">87</span><span class="t"><b>nuapp://pix/home</b><code>nuapp://pix/home</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvaG9tZQ=="><span class="n">88</span><span class="t"><b>pix/home — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvaG9tZQ==</code></span></a>
+  <a class="try good" href="nuapp://pix/transfer"><span class="n">89</span><span class="t"><b>nuapp://pix/transfer</b><code>nuapp://pix/transfer</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvdHJhbnNmZXI="><span class="n">90</span><span class="t"><b>pix/transfer — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvdHJhbnNmZXI=</code></span></a>
+  <a class="try good" href="nuapp://pix/pay"><span class="n">91</span><span class="t"><b>nuapp://pix/pay</b><code>nuapp://pix/pay</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGF5"><span class="n">92</span><span class="t"><b>pix/pay — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvcGF5</code></span></a>
+  <a class="try good" href="nuapp://pix/copy-paste"><span class="n">93</span><span class="t"><b>nuapp://pix/copy-paste</b><code>nuapp://pix/copy-paste</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29weS1wYXN0ZQ=="><span class="n">94</span><span class="t"><b>pix/copy-paste — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29weS1wYXN0ZQ==</code></span></a>
+  <a class="try good" href="nuapp://pix/copia-e-cola"><span class="n">95</span><span class="t"><b>nuapp://pix/copia-e-cola</b><code>nuapp://pix/copia-e-cola</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29waWEtZS1jb2xh"><span class="n">96</span><span class="t"><b>pix/copia-e-cola — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvY29waWEtZS1jb2xh</code></span></a>
+  <a class="try good" href="nuapp://pix/send"><span class="n">97</span><span class="t"><b>nuapp://pix/send</b><code>nuapp://pix/send</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvc2VuZA=="><span class="n">98</span><span class="t"><b>pix/send — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvc2VuZA==</code></span></a>
+  <a class="try good" href="nuapp://pix/dict/keys"><span class="n">99</span><span class="t"><b>nuapp://pix/dict/keys</b><code>nuapp://pix/dict/keys</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXlz"><span class="n">100</span><span class="t"><b>pix/dict/keys — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvZGljdC9rZXlz</code></span></a>
+  <a class="try good" href="nuapp://pix/area"><span class="n">101</span><span class="t"><b>nuapp://pix/area</b><code>nuapp://pix/area</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvYXJlYQ=="><span class="n">102</span><span class="t"><b>pix/area — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9waXgvYXJlYQ==</code></span></a>
+  <a class="try good" href="nuapp://flutter/pix"><span class="n">103</span><span class="t"><b>nuapp://flutter/pix</b><code>nuapp://flutter/pix</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9mbHV0dGVyL3BpeA=="><span class="n">104</span><span class="t"><b>flutter/pix — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9mbHV0dGVyL3BpeA==</code></span></a>
+  <a class="try good" href="nuapp://transfer"><span class="n">105</span><span class="t"><b>nuapp://transfer</b><code>nuapp://transfer</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2Zlcg=="><span class="n">106</span><span class="t"><b>transfer — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly90cmFuc2Zlcg==</code></span></a>
+  <a class="try good" href="nuapp://payment"><span class="n">107</span><span class="t"><b>nuapp://payment</b><code>nuapp://payment</code></span></a>
+  <a class="try good" href="https://nuapp.nubank.com.br/bnVhcHA6Ly9wYXltZW50"><span class="n">108</span><span class="t"><b>payment — envelope</b><code>https://nuapp.nubank.com.br/bnVhcHA6Ly9wYXltZW50</code></span></a>
+
   <p class="note">
     Página de teste, não faz parte do bot — só links. Um esquema que o telefone
     não conhece simplesmente não faz nada; não quebra nada.
