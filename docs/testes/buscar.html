@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bookmarklet — achar deeplinks</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16181c; --muted: #63676e; --line: #e3e5e8;
+    --card: #f6f7f8; --accent: #0a66c2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33;
+            --card: #1e2126; --accent: #4aa3ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px 18px 72px; background: var(--bg); color: var(--fg);
+         font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; }
+  h1 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .07em;
+       color: var(--muted); margin: 1.75rem 0 .5rem; }
+  p, li { color: var(--muted); font-size: .9375rem; }
+  ol { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  textarea { width: 100%; height: 9rem; padding: .75rem; border-radius: .5rem;
+             border: 1px solid var(--line); background: var(--card); color: var(--fg);
+             font: 11px/1.35 ui-monospace, monospace; resize: vertical; }
+  button { width: 100%; padding: .9rem; margin-top: .5rem; border: 0;
+           border-radius: .625rem; background: var(--accent); color: #fff;
+           font-size: 1rem; font-weight: 600; }
+  code { font-size: .8125rem; }
+  .note { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem;
+          font-size: .8125rem; color: var(--muted); }
+  nav a { color: var(--accent); font-size: .875rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Achar deeplinks na página do banco</h1>
+  <p>
+    Varre o HTML e os scripts da página aberta e lista todo esquema que não é
+    <code>http(s)</code> — <code>santanderpf://</code>, <code>nubank://</code>,
+    o que houver — mais todo <code>tela=</code>, <code>fc=</code> e
+    <code>cp=</code> que encontrar. É o catálogo inteiro de uma vez, em vez de
+    tocar botão por botão.
+  </p>
+  <nav><a href="santander.html">← testes Santander</a> · <a href="nubank.html">testes Nubank</a></nav>
+
+  <h2>1. Copia</h2>
+  <textarea id="code" readonly spellcheck="false"></textarea>
+  <button id="copy">Copiar</button>
+
+  <h2>2. Vira favorito</h2>
+  <ol>
+    <li>Nesta página, toca em compartilhar → <strong>Adicionar aos Favoritos</strong>.</li>
+    <li>Favoritos (o ícone de livro) → <strong>Editar</strong> → toca no favorito que você acabou de criar.</li>
+    <li>Apaga o endereço dele e <strong>cola</strong> o código copiado. Dá um nome curto, tipo <em>deeplinks</em>. Salva.</li>
+  </ol>
+
+  <h2>3. Usa</h2>
+  <ol>
+    <li>Abre a página do banco no Safari (a de Pix, ou a que tem o botão que abre o app).</li>
+    <li>Toca em Favoritos → <strong>deeplinks</strong>.</li>
+    <li>A lista aparece por cima da página. Toque duplo fecha.</li>
+  </ol>
+
+  <p class="note">
+    Só lê a página que já está aberta; não envia nada pra lugar nenhum.
+    Scripts de outro domínio podem não ser lidos — se vier pouca coisa, é isso.
+  </p>
+</main>
+<script>
+const BM = "javascript:(async()=>{const S=new Set(),F=new Set();const scan=t=>{(t.match(/[a-z][a-z0-9+.\\-]{2,}:\\/\\/[^\\s\"'`<>)\\\\]+/gi)||[]).forEach(m=>{if(!/^https?:/i.test(m))S.add(m)});(t.match(/\\b(?:fc|cp|tela)=[A-Za-z0-9_.\\-]+/g)||[]).forEach(m=>F.add(m))};scan(document.documentElement.outerHTML);for(const s of document.scripts){if(!s.src)continue;try{scan(await(await fetch(s.src)).text())}catch(e){}}const o=document.createElement('pre');o.style.cssText='position:fixed;inset:0;z-index:2147483647;margin:0;background:#fff;color:#111;font:12px/1.4 ui-monospace,monospace;padding:14px;overflow:auto;white-space:pre-wrap;word-break:break-all';o.textContent='== ESQUEMAS ('+S.size+') ==\\n'+([...S].join('\\n')||'(nenhum)')+'\\n\\n== PARAMETROS ('+F.size+') ==\\n'+([...F].sort().join('\\n')||'(nenhum)');o.ondblclick=()=>o.remove();document.body.appendChild(o)})()";
+const ta = document.getElementById("code");
+ta.value = BM;
+document.getElementById("copy").onclick = async () => {
+  const b = document.getElementById("copy");
+  try {
+    await navigator.clipboard.writeText(BM);
+  } catch (e) {
+    ta.focus(); ta.select();
+    try { document.execCommand("copy"); } catch (e2) {}
+  }
+  b.textContent = "Copiado ✓";
+  setTimeout(() => { b.textContent = "Copiar"; }, 1800);
+};
+</script>
+</main>
+</body>
+</html>
