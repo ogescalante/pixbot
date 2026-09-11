@@ -94,6 +94,7 @@ def test_a_hint_that_contradicts_the_math_still_warns():
         ("5545999999999", "+5545999999999", PHONE),       # lost only the plus
         ("(45) 99999-9999", "+5545999999999", PHONE),     # said so out loud
         ("4532101234", "+554532101234", PHONE),           # landline, no CPF is 10
+        ("4599998888", "+554599998888", PHONE),           # mobile, written the old way
         ("123E4567-E89B-12D3-A456-426614174000",
          "123e4567-e89b-12d3-a456-426614174000", EVP),
     ],

@@ -118,14 +118,15 @@ def is_mobile(digits: str) -> bool:
     )
 
 
-def is_landline(digits: str) -> bool:
-    """Ten digits shaped like a Brazilian landline: real DDD, then 2–5."""
-    return (
-        len(digits) == 10
-        and digits.isdigit()
-        and int(digits[:2]) in DDDS
-        and digits[2] in "2345"
-    )
+def is_ten_digit_phone(digits: str) -> bool:
+    """Ten digits with a real DDD — landline, or a mobile written the old way.
+
+    No CPF is ten digits, so there is no tie to break here and no reason to be
+    strict about what follows the DDD. Insisting on a landline prefix (2–5)
+    would refuse `4599998888`, which is how a mobile was written before the
+    ninth digit arrived and is still how plenty of people type one.
+    """
+    return len(digits) == 10 and digits.isdigit() and int(digits[:2]) in DDDS
 
 
 def readings(raw: str, hint: str | None = None) -> list[Key]:
@@ -161,8 +162,7 @@ def readings(raw: str, hint: str | None = None) -> list[Key]:
         # 5545999999999 — a phone that lost only its plus sign.
         return [Key("+" + digits, PHONE)]
     if len(digits) == 10:
-        # No CPF is ten digits, so a landline needs no tie-break.
-        return [Key("+55" + digits, PHONE)] if is_landline(digits) else []
+        return [Key("+55" + digits, PHONE)] if is_ten_digit_phone(digits) else []
     if len(digits) != 11:
         return []
 

@@ -65,8 +65,14 @@ Six bank buttons under every payment is worse than two. If this grows past
 three or four, the shape to reach for is a "outro banco" button that expands,
 not a longer permanent row.
 
-## 3. Port the CPF/telefone fix back to Claudia
+## 3. ~~Port the CPF/telefone fix back to Claudia~~ — done 2026-09-11
 
-`api/app/checking/pix_bot.py` in the finances repo still reads eleven bare
-digits as a CPF and warns when `key[2] == "9"`. The math in `pix/keys.py` here
-replaces both the reading and the warning. Same fix, one file.
+Ported on the `worktree-pix-cpf-telefone` branch of the finances repo, waiting
+on a merge to main. `app/checking/pix.py` there now carries the same `Key`,
+`is_cpf`, `is_mobile` and `readings`, and `/pix` takes the same trailing
+`cpf` / `telefone`. Claudia has no inline mode, so the ambiguous case shows the
+CPF reading with the note instead of two cards.
+
+The two copies are deliberate duplication, not a shared package — one is a
+public bot with no database and the other lives inside a private app. If they
+drift, `pix/keys.py` here is the canonical one.
