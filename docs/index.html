@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pixbot — abridores de app</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16181c; --muted: #63676e; --line: #e3e5e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 48px 24px; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 34rem; margin: 0 auto; }
+  h1 { font-size: 1.375rem; margin: 0 0 1rem; }
+  p { color: var(--muted); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .35rem 0; }
+  code { font-size: .875rem; }
+  .note { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 2rem;
+          font-size: .875rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>pixbot — abridores de app</h1>
+
+  <p>
+    Páginas de uma linha só. O Telegram só aceita <code>http(s)</code> e
+    <code>tg://</code> num botão — manda um <code>santanderpf://</code> e a API
+    responde <em>“Unsupported URL protocol”</em> e se recusa a enviar a
+    mensagem. Alguns bancos brasileiros não publicam nenhum universal link, e o
+    esquema próprio é a única porta que abre o app.
+  </p>
+
+  <p>Então o botão aponta pra cá, e daqui o telefone abre o app:</p>
+
+  <ul>
+    <li><a href="santander.html">santander.html</a></li>
+  </ul>
+
+  <p class="note">
+    <strong>Nenhum dado de pagamento passa por estas páginas.</strong> O código
+    Pix é gerado dentro do bot e vai direto pra área de transferência; não entra
+    no endereço, não é enviado pra cá e não fica guardado em lugar nenhum. Estas
+    páginas são estáticas e não têm servidor atrás.
+    <br><br>
+    Código: <a href="https://github.com/ogescalante/pixbot">github.com/ogescalante/pixbot</a>
+  </p>
+</main>
+</body>
+</html>

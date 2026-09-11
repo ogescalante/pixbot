@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Abrir o Santander</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16181c; --muted: #63676e;
+    --line: #e3e5e8; --accent: #ec0000; --accent-fg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #16181c; --fg: #f2f3f5; --muted: #9aa0a6; --line: #2b2e33; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center;
+    justify-content: center; padding: 24px;
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { width: 100%; max-width: 30rem; text-align: center; }
+  h1 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  p { margin: 0 0 1rem; color: var(--muted); }
+  a.go {
+    display: block; padding: 1rem 1.25rem; border-radius: .75rem;
+    background: var(--accent); color: var(--accent-fg);
+    font-weight: 600; text-decoration: none; margin: 1.5rem 0 1rem;
+  }
+  .note {
+    border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 1.5rem;
+    font-size: .8125rem; color: var(--muted);
+  }
+  code { font-size: .8125rem; word-break: break-all; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Abrindo o app do Santander…</h1>
+  <p>Se não abrir sozinho, toca no botão.</p>
+
+  <a class="go" id="go" href="santanderpf://deeplink?tela=pixEditardados">
+    Abrir Santander
+  </a>
+
+  <p class="note">
+    Esta página existe por um motivo só: o Telegram não deixa um botão apontar
+    para <code>santanderpf://</code>, então o botão aponta para cá e daqui o
+    telefone abre o app.
+    <br><br>
+    <strong>Nenhum dado passa por aqui.</strong> O código Pix já está na sua
+    área de transferência antes de você chegar nesta página — ele nunca entra
+    no endereço, nunca é enviado a lugar nenhum e esta página não guarda nada.
+    <br><br>
+    Confere o nome que o banco mostrar antes de confirmar qualquer pagamento.
+  </p>
+</main>
+<script>
+  // A tap is the reliable trigger: webviews increasingly refuse to navigate to
+  // a custom scheme on their own. Try anyway — when it works the page is never
+  // seen — and leave the button as the visible fallback.
+  try { window.location.replace(document.getElementById("go").href); } catch (e) {}
+</script>
+</body>
+</html>
