@@ -1,0 +1,9 @@
+services:
+  worker:
+    container_name: pixbot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - token.env

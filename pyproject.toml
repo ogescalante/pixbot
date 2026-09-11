@@ -1,0 +1,18 @@
+[project]
+name = "pixbot"
+version = "0.1.0"
+description = "Telegram bot that turns a Pix key into a copia-e-cola, inline in any chat"
+requires-python = ">=3.11"
+dependencies = [
+  "aiogram==3.28.2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<9"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
