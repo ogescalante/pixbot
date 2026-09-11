@@ -76,7 +76,7 @@ PicPay, PagBank, Mercado Pago and Neon are the next tier. Pix itself reaches
 | ~~Inter~~, ~~Bradesco~~ | — | **Added 2026-09-11**, see the table above. |
 | **Mercado Pago** | `mercadopago.com.br` has no Pix-send path; the nearest is `/money-transfer*` | Low value — `/money-transfer*` is the transfer hub, not Pix. |
 | **Nubank** | Re-checked 2026-09-11: still only `/payment/*` (*Link de Pagamento* — a receivable with a server-issued id, pointed the wrong way for us), plus e-mail/sim/account-linking paths | Nothing to improve without a Link de Pagamento API. Keep the OneLink. |
-| Santander | — | **No button.** All three doors shut — see "Santander, and the scheme problem" below. Its custom scheme is the only thing that opens the app, and a scheme cannot be a Telegram button. |
+| Santander | `santanderpf://deeplink?tela=pix` via `docs/santander.html` | **Opens the app on the Pix area. Confirmed on device 2026-09-11.** A scheme cannot be a Telegram button, so the button points at our static page and the page opens the scheme. |
 | Banco do Brasil, Caixa, C6, PicPay, PagBank, Neon | Manifests are behind Akamai/Cloudflare WAFs and refuse a plain fetch — **not absent, just unreadable from a laptop** | Fetch from a phone browser, or `curl` from a residential connection, then read the `paths` / `components` array the same way. |
 
 ### Why a half-working button is worse than none
@@ -92,6 +92,31 @@ already verified on a device.** Itaú is in the bot on the second ground — its
 manifest is unreadable from a laptop too, but someone tapped the link on a
 phone on 2026-08-07 and watched it land on the Pix screen. The WAF never
 mattered; the device check is what produced a working button.
+
+### Reading a scheme off an installed app — no jailbreak, no APK download
+
+The device's install daemon answers over USB, and this is where `santanderpf`,
+`nu-mmp` and Itaú's schemes actually came from — not from guessing:
+
+```bash
+brew install libimobiledevice ideviceinstaller
+ideviceinstaller list | grep -i <banco>            # bundle id
+ideviceinstaller list -b <bundleid> -a CFBundleURLTypes --xml
+ideviceinstaller list -b <bundleid> -a UIApplicationShortcutItems --xml
+```
+
+`CFBundleURLTypes` is the exhaustive list of schemes the app registers.
+`UIApplicationShortcutItems` is the sleeper: Santander's quick actions declare
+`…minhacontapf.pixepagar3d` titled "Pix e pagar", which is the app's own naming
+convention leaking out — lowercase concatenated Portuguese. Free evidence about
+how their route names are spelled.
+
+What the device will **not** give you is the route table. `tela=` values live in
+compiled code. Same for Nubank: `CFBundleExecutable: Runner` plus `DART_DEFINES`
+says the app is Flutter, and `NSAdvertisingAttributionReportEndpoint:
+appsflyer-skadnetwork.com` plus the name `nu-mmp` (MMP = Mobile Measurement
+Partner) says that scheme belongs to AppsFlyer — so its argument is
+`deep_link_value`, not a path.
 
 ### How to check one
 
